@@ -1,0 +1,75 @@
+@import "compass";
+/* CONFIG */
+$mw:1200px;
+
+$nMw: 1200;
+
+$gutter: 24px;
+
+$nbG:1.618; // nombre d'or
+
+$bh:1px solid #eee;
+/* typography */
+
+$ff: palatino, 'palatino lt std', 'palatino linotype', 'book antiqua', garamond, serif;
+
+$ff2: Oswald,'Helvetica neue', arial, freesans, clean, sans-serif;
+
+$fs:15px; //font-size
+
+$lh:1.5; //line-height
+
+$tc: rgb(17,17,17); //text-color 333333
+
+$success :rgb(20,180,50);
+
+$error: rgb(180,20,40);
+
+$errorBackground: lighten(red,40%);
+
+$infosBackground: lighten(yellow,40%);
+
+$succesBackground: lighten(green,60%);
+/* END typography */
+
+/*media*/
+$m1:600px;
+
+$m2:1000px;
+
+$m2:1200px;
+/*END MEDIA*/
+
+/*COLOR*/
+//$mc: #2e70ea; //main color
+$mc: #317AE8;
+
+$mcc: darken(#2e70ea,20%);
+
+$footer: #353535;
+
+$blue : #5382d9;
+
+$blueH : darken(#5382d9,10%);
+
+$grey : #7c7c7c;
+
+$greyH: darken(#494949,10%);
+
+$greyA: #626262;
+
+$greyL: #F2F2F2;
+
+$greyDB:#2d292a;
+
+$greyL2: darken(#F2F2F2,20%);
+
+$greyL2H: darken($greyL2,10%);
+
+$greyD:#737373;
+
+$greyDH:darken($greyD,10%);
+
+$greyD2:darken(#737373,5%);
+
+$greyD2H:darken($greyD2,10%);

@@ -1,0 +1,603 @@
+@import "functions";
+@import "variables";
+@import "compass";
+
+@mixin body() {
+  body {
+    font-family: $ff;
+    font-size: $fs;
+    line-height: $lh;
+    color: $tc;
+    min-height: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  em {
+    font-style: italic;
+  }
+  b{
+    font-weight: bold;
+  }
+  html {
+    height: 100%;
+  }
+  a {
+    color: darken($mc,10%);
+    text-decoration: none;
+    border-bottom: 1px dotted darken($mc,10%);
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    padding-left:1px;
+    padding-right:1px;
+    &:hover, &:focus, &:active {
+      text-decoration: none;
+      border:1px solid darken($mc,10%);
+      @include border-radius(0.3em);
+      border-bottom: 0;
+      border-top: 0;
+      outline: 0;
+    }
+
+  }
+  p {
+    margin: 0.5em 0;
+    line-height: 1.5;
+    font-family: $ff;
+  }
+}
+
+@mixin table() {
+  table {
+
+    thead {
+
+    }
+    tbody {
+
+    }
+    th {
+
+    }
+    tr {
+
+    }
+    td {
+
+    }
+  }
+}
+
+@mixin img() {
+  img {
+    max-width: 100%;
+    margin: 0.5em 0;
+  }
+}
+
+@mixin tab() {
+
+  .tab {
+
+    a {
+
+      font-family: $ff2;
+    }
+  }
+}
+
+@mixin container {
+  .container {
+    @include c(12);
+    min-height: 100%;
+    margin-bottom: 0;
+    background-color:#FFF;
+
+    margin: auto;
+  }
+}
+
+@mixin wrapper() {
+  .wrapper {
+    max-width: $mw;
+    overflow: hidden;
+    margin: auto;
+    height: 100%;
+    box-sizing: border-box;
+    @include c(12);
+    //margin-bottom: 1em;
+    &:after {
+      @include clear();
+    }
+  }
+}
+
+@mixin article() {
+  article, .article {
+    padding-bottom: 2em;
+    margin-bottom: 1em;
+    border-bottom: 1px solid $greyL2;
+    position: relative;
+  }
+  h1, h2, h3, h4 {
+    text-align: center;
+  }
+}
+
+@mixin heading() {
+  h1, h2, h3, h4, h5, h6 {
+    line-height: ($lh / 2)*1.5;
+    font-weight: bold;
+    padding-bottom: 0.2em;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  h1 {
+    font-size: 3.142em;
+    border-bottom: $bh;
+  }
+  h2 {
+    font-size: 2.618em;
+    border-bottom: $bh;
+  }
+  h3 {
+    font-size: 1.942em;
+    border-bottom: $bh;
+  }
+  h4 {
+    font-size: 1.618em;
+  }
+  h5 {
+    font-size: 1.2em;
+  }
+  h6 {
+    font-size: 1.1em;
+  }
+  .logo {
+    margin: 1em 0;
+    border-bottom: 0;
+    border:0!important;
+    a{
+      border:0!important;
+      &:hover,&:focus{
+        border:0!important;
+      }
+    }
+  }
+
+  @media (max-width: $m1) {
+    h1 {
+      font-size: 2.805em;
+      border-bottom: $bh;
+    }
+    h2 {
+      font-size: 2.618em;
+      border-bottom: $bh;
+    }
+    h3 {
+      font-size: 1.734em;
+      border-bottom: $bh;
+    }
+    h4 {
+      font-size: 1.618em;
+    }
+    h5 {
+      font-size: 1.2em;
+    }
+    h6 {
+      font-size: 1.1em;
+    }
+
+  }
+}
+
+@mixin section() {
+  .section {
+    display: inline-block;
+    position: absolute;
+    height: 0!important;
+    background-color: white;
+    color:$tc!important;
+    text-indent: -99999999px!important;
+    border: 0!important;
+    padding: 0!important;
+    margin: 0!important;
+  }
+  .reader {
+    display: inline-block;
+    position: absolute;
+    height: 0!important;
+    background-color: white;
+    color:$tc!important;
+    text-indent: -99999999px!important;
+    border: 0!important;
+  }
+  a.reader{
+    color:$tc!important;
+  }
+
+  .hide {
+    display: none !important;
+  }
+}
+
+@mixin breadcrumbs() {
+  .breadcrumbs {
+    background-color: $greyL;
+    padding: 0.2em 0;
+    //border:1px dotted $grey;
+
+    @include c(12);
+    margin: 0.5em auto;
+  }
+}
+
+@mixin label() {
+  label {
+    padding: 10px 2px;
+    display: inline-block;
+  }
+}
+
+@mixin abs() {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+@mixin abs-left() {
+  position: absolute;
+  left: 0;
+  //right:0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+@mixin abs-right() {
+  position: absolute;
+  //left:0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+@mixin abs-top-left() {
+  position: absolute;
+  left: 0;
+  //right:0;
+  top: 0;
+  //bottom:0;
+  margin: auto;
+}
+
+@mixin abs-bot() {
+  position: absolute;
+  left: 0;
+  right: 0;
+  //top:0;
+  bottom: 0;
+  margin: auto;
+}
+@mixin form(){
+  .errors{
+    display:block;
+    background-color: $errorBackground;
+    padding:1em;
+    border:1px solid red;
+    margin:1em;
+  }
+  .informations{
+    display:block;
+    box-sizing:border-box;
+    font-size: 0.8em;
+    background-color: $infosBackground;
+    padding:1em;
+    @include c(12);
+    border:1px solid darken(yellow,10%);
+    margin-bottom: 0.5em;
+  }
+  .success{
+    display:block;
+    font-size: 0.8em;
+    background-color: $succesBackground;
+    padding:1em;
+    border:1px solid green;
+    margin:1em;
+  }
+}
+@mixin input() {
+  form {
+    width: 100%;
+  }
+  input, textarea {
+    display: inline-block;
+    //@include border-radius(3px);
+    border: 1px solid $greyL2;
+    background-color: $greyL;
+    padding: 2px 1em;
+    margin: 10px 10px 10px 0;
+    height: 40px;
+    float: left;
+    box-sizing: border-box;
+    &:hover {
+      border: 1px solid lighten($mc, 10%);
+      outline: none;
+      background-color: #FFF;
+      @include box-shadow(lighten($mc, 10%) 0 0 2px 1px);
+    }
+    &:focus {
+      border: 1px solid $mc;
+      outline: none;
+      background-color: #FFF;
+      @include box-shadow($mc 0 0 2px 1px);
+    }
+    &:hover label {
+      background-color: red;
+    }
+
+  }
+  input[type="radio"] {
+
+    &:hover, &:focus {
+      @include box-shadow(0 0 0 0);
+    }
+  }
+  input:focus:valid {
+    border: 1px solid $success;
+    @include box-shadow($success 0 0 2px 0);
+  }
+  input:focus:invalid {
+    border: 1px solid $error;
+    @include box-shadow($error 0 0 2px 0);
+  }
+  @media(max-width: $m1) {
+    input {
+      width: auto;
+      display: block;
+    }
+  }
+}
+
+@mixin btn() {
+  .btn, input[type=submit], button {
+    color: white;
+    text-align: center;
+    background-color: $mc;
+    padding: 6px 12px;
+    border: none;
+    margin: 5px 0;
+    display: inline-block;
+    text-decoration: none;
+    @include border-radius(0);
+    box-sizing: border-box;
+    cursor: pointer;
+    &:hover {
+      @include box-shadow(lighten($mc, 10%) 0 0 2px 1px);
+      background-color: darken($mc, 5%);
+      border: none;
+    }
+    &:focus {
+      @include box-shadow($mc 0 0 2px 1px);
+      background-color: darken($mc, 10%);
+      border: none;
+    }
+    &:visited {
+      color: rgba(255, 255, 255, 0.9);
+    }
+    a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      border: none;
+      &:hover {
+        border: none;
+        background-color: transparent;
+      }
+      &:visited {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+  input[type=search] ~ input[type=submit] {
+    text-indent: -99999px;
+    //width:40px;
+    background-image: url('../img/framework/icon/search.png');
+    background-size: 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-sizing: border-box;
+  }
+}
+
+@mixin mhb-p($height, $item) {
+  background-color: $grey;
+  background: linear-gradient(to bottom, #efefef 0, #cdcdcd 100%);
+  color: white;
+  position: fixed;
+  width: 100%;
+  @include box-sizing(border-box);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: $height+px;
+  outline: 1px solid $grey;
+  ul {
+    width: 100%;
+    height: $height+px;
+    text-align: center;
+    padding: 0;
+    margin: auto;
+    li, ol {
+      width: (100% / $item) - 2%;
+      display: inline-block;
+      height: 100%;
+      vertical-align: baseline;
+      border-left: 1px solid $grey;
+
+      //position:relative;
+      a {
+        display: block;
+        //height:100%;
+        //padding-top:8px;
+        height: auto;
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        @include box-sizing(border-box);
+        border-top: 5px solid #efefef;
+        &:hover, &:focus {
+          // background-color: darken($greyDH,2%);
+          @include box-sizing(border-box);
+          border-top: 5px solid darken($greyDH, 20%);
+          outline: none;
+        }
+      }
+    }
+    li:first-child, ol:first-child {
+      border-left: 0;
+    }
+    li + li, ol + ol {
+      //margin-left: 1%;
+    }
+  }
+}
+
+@mixin clear() {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+@mixin c($nNumber) {
+
+  width: colAlone($nNumber);
+  margin: auto;
+  //margin-left: 0;
+  display: block;
+  float: none;
+  @include box-sizing(border-box);
+
+  &:after {
+    @include clear();
+  }
+}
+
+@mixin cf($nNumber) {
+
+  width: colf($nNumber);
+  display: block;
+  float: none;
+  @include box-sizing(border-box);
+  margin: 0;
+  &:after {
+    @include clear();
+  }
+}
+
+@mixin cl($nNumber) {
+
+  width: col($nNumber);
+  margin-left: gutter();
+  margin-right: gutter();
+  float: left;
+  display: block;
+  @include box-sizing(border-box);
+  &:after {
+    @include clear();
+  }
+}
+
+@mixin cl-nm($nNumber) {
+
+  width: colAlone($nNumber);
+  float: left;
+  display: block;
+  @include box-sizing(border-box);
+  &:after {
+    @include clear();
+  }
+}
+
+@mixin offsetL($nNumber) {
+
+  margin-left: col($nNumber);
+}
+
+@mixin offsetR($nNumber) {
+
+  margin-right: col($nNumber);
+}
+
+@mixin cfl($nNumber) {
+
+  width: colf($nNumber);
+  float: left;
+  margin-left: gutter();
+  margin-right: gutter();
+  display: block;
+  @include box-sizing(border-box);
+  //margin-top:0; 
+  margin-bottom: gutter() * 2;
+  &:after {
+    @include clear();
+  }
+}
+
+@mixin cfl-nm($nNumber) {
+
+  width: colAlone($nNumber);
+  float: left;
+  display: block;
+  @include box-sizing(border-box);
+  margin-top: 0;
+  margin-bottom: 0;
+  &:after {
+    @include clear();
+  }
+}
+
+@mixin cr($nNumber) {
+
+  width: col($nNumber);
+  margin-left: gutter();
+  float: right;
+  display: block;
+  @include box-sizing(border-box);
+  &:after {
+    @include clear();
+  }
+}
+
+@mixin cfr($nNumber) {
+
+  width: colf($nNumber);
+  float: right;
+  margin-left: gutter();
+  margin-right: gutter();
+  display: block;
+  @include box-sizing(border-box);
+  &:after {
+    @include clear();
+  }
+}
+
+@mixin cc($nNumber) {
+  display: block;
+  width: col($nNumber);
+  margin: auto;
+  text-align: center;
+  float: none;
+  @include box-sizing(border-box);
+  &:after {
+    @include clear();
+  }
+}
+
+/*l * 100 / 1024*/

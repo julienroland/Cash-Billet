@@ -1,0 +1,103 @@
+@import "functions";
+@import "variables";
+@import "compass";
+
+@mixin icon() {
+  .icon {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    float: left;
+    margin-right: 0.5em;
+    top: 0;
+    text-indent: -999999px;
+    background-size: 100%;
+    vertical-align: middle;
+  }
+  .icon-menu {
+
+    background-image: url('../img/framework/icon/menu2White.png');
+  }
+  .icon-chevron-left-little {
+    width: 16px;
+    height: 16px;
+
+    background-image: url('../img/framework/icon/chevron-left-little.png');
+
+  }
+  .icon-chevron-right-little {
+    width: 16px;
+    height: 16px;
+
+    background-image: url('../img/framework/icon/chevron-right-little.png');
+
+  }
+  .icon-chevron-right-white {
+
+    float: right;
+    background-image: url('../img/framework/icon/chevron-rightWhite.png');
+
+  }
+  .icon-chevron-right-little-white {
+    height: 16px;
+    width: 16px;
+    float: right;
+    background-image: url('../img/framework/icon/chevron-right-littleWhite.png');
+  }
+  .icon-chevron-bottom-white {
+
+    float: right;
+    background-image: url('../img/framework/icon/chevron-bottomWhite.png');
+
+  }
+  .icon-shop-white {
+
+    float: right;
+    background-image: url('../img/framework/icon/shopWhite.png');
+
+  }
+  .icon-map-little {
+    height: 16px;
+    width: 16px;
+    float: right;
+
+    background-image: url('../img/framework/icon/map-little.png');
+
+  }
+  .icon-email-little {
+    height: 16px;
+    width: 16px;
+    float: right;
+    background-image: url('../img/framework/icon/mail-little.png');
+
+  }
+  .icon-tel-little {
+    height: 16px;
+    width: 16px;
+    float: right;
+    background-image: url('../img/framework/icon/tel-little.png');
+
+  }
+  .icon-bag-white {
+    height: 32px;
+    width: 32px;
+    background-image: url('../img/framework/icon/bagWhite.png');
+  }
+  .icon-go-white {
+    height: 32px;
+    width: 32px;
+    background-image: url('../img/framework/icon/goWhite.png');
+  }
+  .icon-login {
+    height: 16px;
+    width: 16px;
+    float: none;
+    background-image: url('../img/framework/icon/login.png');
+  }
+  .icon-account {
+    height: 16px;
+    float: none;
+    width: 16px;
+    background-image: url('../img/framework/icon/account.png');
+  }
+}

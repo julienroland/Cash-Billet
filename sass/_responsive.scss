@@ -1,0 +1,977 @@
+@import "compass";
+@import "variables";
+
+@media(min-width: 940px) {
+  .foot {
+    @include cfl(4);
+  }
+  .foot + .foot {
+    @include cl(4);
+  }
+  .order {
+    padding: 1em;
+    @include c(12);
+  }
+  .order4 {
+    .choixPaiement {
+      display: block;
+      li {
+        @include cfl(4);
+        margin-left: colFix(4, 12);
+        & + li {
+          @include cl(4);
+        }
+      }
+    }
+    .navigationOrder {
+      a {
+        float: left !important;
+      }
+
+    }
+  }
+  .orderSteps {
+    height: 200px;
+    overflow: visible;
+    li {
+      background-color: transparent;
+      padding: 0;
+      overflow: visible;
+      a {
+        padding: 1em;
+        overflow: visible;
+        box-sizing: border-box;
+        border: 0;
+        span {
+          padding-top: 0;
+        }
+        &:hover, &:focus {
+          background-color: rgba(white, 0.7);
+          border: 0;
+          //@include box-shadow($grey 2px 2px 4px 1px);
+        }
+      }
+      span {
+        vertical-align: middle;
+        color: $tc;
+        font-size: 1.4em;
+      }
+    }
+    .active {
+      background-color: white;
+      @include box-shadow(rgba($greyD, 0.6) 3px 3px 4px 1px);
+      padding: 0;
+
+    }
+    .resume {
+      a {
+        background-image: image-url('framework/icon/resumeOut.png');
+        background-repeat: no-repeat;
+        background-position: 0 40px;
+        position: relative;
+        background-color: transparent;
+
+      }
+      &.active, &.done {
+        a {
+          background-image: image-url('framework/icon/resume.png');
+          background-repeat: no-repeat;
+          background-position: 0 40px;
+          position: relative;
+          background-color: transparent;
+        }
+        &:hover, &:focus {
+          background-color: rgba(white, 0.7);
+        }
+      }
+    }
+    .identifier {
+      a {
+        background-image: image-url('framework/icon/identifierOut.png');
+        background-repeat: no-repeat;
+        background-position: 0 40px;
+        position: relative;
+        background-color: transparent;
+
+      }
+      &.active, &.done {
+        a {
+          background-image: image-url('framework/icon/identifier.png');
+          background-repeat: no-repeat;
+          background-position: 0 40px;
+          position: relative;
+          background-color: transparent;
+        }
+        &:hover, &:focus {
+          background-color: rgba(white, 0.7);
+        }
+      }
+    }
+    .adresse {
+      a {
+        background-image: image-url('framework/icon/livraisonOut.png');
+        background-repeat: no-repeat;
+        background-position: 0 40px;
+        position: relative;
+        background-color: transparent;
+
+      }
+      &.active, &.done {
+        a {
+          background-image: image-url('framework/icon/livraison.png');
+          background-repeat: no-repeat;
+          background-position: 0 40px;
+          position: relative;
+          background-color: transparent;
+        }
+        &:hover, &:focus {
+          background-color: rgba(white, 0.7);
+        }
+      }
+    }
+    .paiement {
+      a {
+        background-image: image-url('framework/icon/paiementOut.png');
+        background-repeat: no-repeat;
+        background-position: 0 40px;
+        position: relative;
+        background-color: transparent;
+
+      }
+      &.active, &.done {
+        a {
+          background-image: image-url('framework/icon/paiement.png');
+          background-repeat: no-repeat;
+          background-position: 0 40px;
+          position: relative;
+          background-color: transparent;
+        }
+        &:hover, &:focus {
+          background-color: rgba(white, 0.7);
+        }
+      }
+    }
+  }
+  .order2 {
+    input[type="submit"] {
+      height: 50px;
+
+    }
+    .part1Inscription {
+      @include cfl(6);
+      max-width: 100%;
+      min-height: 250px;
+      fieldset {
+        min-height: 250px;
+      }
+    }
+    .part2Inscription {
+      @include cl(6);
+      max-width: 100%;
+      min-height: 250px;
+      fieldset {
+        min-height: 250px;
+      }
+    }
+    .formInscription {
+      @include c(12);
+      max-width: 100%;
+      fieldset {
+        min-height: 900px;
+        @include cfl(6);
+        & + fieldset {
+          @include cl(6);
+        }
+      }
+      input[type="submit"] {
+        @include cfr(6);
+      }
+    }
+  }
+  /* HEADER */
+  .logo {
+    @include c(12);
+    //padding:0.5em 0;
+    box-sizing: content-box;
+    height: 110px;
+  }
+  .search {
+    //@include cr(5);
+    //max-width: 400px;
+    display: none;
+  }
+  .connexion {
+    display: inline-block;
+    float: left;
+    background-color: transparent;
+    color: white;
+    margin-top: 50px;
+    margin-left: 1em;
+    border: 0;
+    p {
+
+    }
+    span {
+      display: none;
+    }
+    a {
+      color: white;
+      font-family: $ff2;
+      border-bottom: 1px dotted white;
+      padding-left: 2px;
+      padding-right: 2px;
+      &:hover, &:focus {
+        border-left: 1px solid white;
+        border-right: 1px solid white;
+        padding-left: 1px;
+        padding-right: 1px;
+      }
+    }
+  }
+  .hero {
+    h2 {
+      font-size: 1.2em;
+    }
+  }
+  .intro {
+    background-image: url('../img/framework/slide/1/background1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 40%;
+    height: 400px;
+    display: block;
+    position: relative;
+    p {
+      font-size: 1.3em;
+    }
+    h3 {
+      font-family: $ff2;
+      font-size: 3em;
+      color: $tc;
+      @include transition(all 0.6s ease-in-out);
+      position: absolute;
+      left: 0;
+      right: 0;
+      //top:-80px;
+    }
+    span {
+      color: $tc;
+    }
+    .item1 {
+      background-image: url('../img/framework/slide/1/item1.jpg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 185px;
+      height: 250px;
+      margin-left: 25%;
+      float: left;
+      left: -300px;
+      opacity: 0;
+      top: 100px;
+      position: absolute;
+      @include box-shadow(rgba(0, 0, 0, 0.6) 0 0 10px 2px);
+      @include transition(all 1s ease 0.6s);
+      box-sizing: border-box;
+      &:hover, &:focus {
+
+        @include transition(all 0.3s ease 0.2s);
+        @include box-shadow(rgba(0, 0, 0, 0.4) 0 0 30px 10px);
+      }
+    }
+    .introContent {
+      position: relative;
+    }
+    .item2 {
+      background-image: url('../img/framework/slide/1/item2.jpg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 185px;
+      position: absolute;
+      height: 250px;
+      margin-right: 25%;
+      float: left;
+      top: 100px;
+      right: -300px;
+      opacity: 0;
+      @include box-shadow(rgba(0, 0, 0, 0.6) 0 0 10px 2px);
+      @include transition(all 0.8s ease 0.4s);
+      &:hover, &:focus {
+        @include scale(1.1);
+        @include transition(all 0.3s ease-in 0.2s);
+        @include box-shadow(rgba(0, 0, 0, 0.4) 0 0 30px 10px);
+      }
+    }
+  }
+  .oneCategorie {
+    @extend .intro;
+    background-image: url('../img/framework/background/background-text4.jpg');
+    .introCategorie {
+      max-width: 800px;
+      font-size: 24.3px;
+      line-height: 1.5;
+      margin-top: 3em;
+      text-align: justify;
+    }
+    .introContent {
+      background: radial-gradient(circle at center, rgba(0, 0, 0, 0.6), transparent);
+
+    }
+    h3{
+      color:white;
+    }
+  }
+  /* PANIER */
+  .panier {
+    display: block;
+    float: left;
+    width: 50px;
+    height: 50px;
+    background-image: image-url('framework/icon/shopWhite.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-top: 50px;
+    @include offsetL(1);
+    &:hover{
+      display: block;
+    }
+    .hero {
+      height: 100%;
+      background-color: transparent;
+    &:hover,&:focus{
+      background-image: image-url('framework/icon/shopWhite.png');
+      background-color: $tc;
+      background-repeat: no-repeat;
+      background-position: center;
+      outline:0;
+      & + .panierItem{
+        display: block;
+      }
+    }
+      a {
+        padding: 0;
+        &:hover, &:focus {
+          background-image: image-url('framework/icon/shopWhite.png');
+          background-color: $tc;
+          background-repeat: no-repeat;
+          background-position: center;
+
+        }
+
+      }
+      span {
+        display: none;
+      }
+    }
+    &:after {
+      @include clear();
+    }
+    .showItems {
+      text-indent: -99999px;
+
+    }
+  }
+  .panierItem {
+    position: absolute;
+    width: 250px;
+    display: none;
+    text-indent: 0;
+    background-color: $greyL;
+    color: white;
+    @include box-shadow($greyD 0 2px 6px 0);
+    &:hover,&:focus{
+      display: inline-block;
+    }
+    p {
+      color: $tc;
+
+    }
+    .btn-panier {
+      width: 70px;
+      margin-left: 0.5em;
+    }
+  }
+  /* END PANIER */
+
+  /* END HEADER */
+  /* ARTICLE */
+  .selection {
+    .article {
+      @include cfl(2.5);
+      margin-top: $gutter / 2;
+      margin-bottom: 0;
+
+      & + .article {
+        @include cfl(2.5);
+        margin-top: $gutter / 2;
+        margin-bottom: 0;
+
+      }
+    }
+
+  }
+  /* END ARTICLE */
+  .banner {
+    //background-image: url('../img/framework/background/background-text2.jpg');
+    //background-size: cover;
+    height: 200px;
+    min-height: 30%;
+    overflow: visible;
+    .welcome {
+      //height:0;
+      @include cfl(3);
+
+    }
+  }
+  /* MENU */
+  .nav {
+    height: 50px;
+    background-color: #FFF;
+    //@include box-shadow(rgba(0, 0, 0, 0.3) 0 3px 3px 0);
+    @include abs-bot();
+    margin-top: 1em;
+    .moreLink {
+      &:hover + .maxDev, &:focus + .maxDev {
+        //display: block;
+      }
+    }
+    .invisible-link {
+      display: block;
+      margin: auto;
+      text-align: center;
+      overflow: visible;
+      background-color: #FFF;
+      border-bottom: 1px solid $greyL2;
+      li {
+        @include cfl-nm(2);
+        display: inline-block;
+        border-bottom: none;
+        height: 100%;
+        height: 50px;
+
+        padding: 0;
+        text-align: center;
+        &:hover, &:focus {
+         // background-color: #FFF;
+        }
+        & + li {
+          // border-left: 1px solid $tc;
+        }
+        span.icon {
+          display: none;
+        }
+        a {
+          text-align: center;
+          color: $tc;
+          display: inline-block;
+          width: auto;
+          float: none;
+          font-weight: 300;
+          @include box-sizing(border-box);
+          &.active {
+            border-bottom: 5px solid $tc;
+          }
+          &:hover, &:focus {
+            @include border-radius(0);
+            border-bottom: 5px solid $tc;
+            //background-color: #FFF;
+            //@include single-transition(all, 0.3s, ease,0.3s);
+          }
+          &:hover + .maxDev, &:focus + .maxDev {
+            @include single-transition(all, 0.3s, ease, 0.3s);
+            //display:block;
+            height: 400px;
+            padding: 1em 0;
+          }
+          //display:block;
+
+          //padding:3px .5em;
+
+        }
+        #maxDev {
+          padding-left: 0;
+        }
+        .maxDev {
+          @include single-transition(all, 0.3s, ease, 0.3s);
+          top: 50px;
+          left: 0;
+          color: $tc;
+          right: 0;
+          max-width: $mw;
+          margin: auto;
+          position: absolute;
+          z-index: 100;
+          height: 0px;
+          display: block;
+          overflow: hidden;
+          width: 100%;
+          padding: 0;
+          box-sizing: border-box;
+          background-color: white;
+          .wrapper {
+            border: 1px solid $greyL2;
+            border-top: 0;
+          }
+          h2 {
+            text-align: left;
+            padding-top: 0.2em;
+            font-size: 2em;
+            margin-left: 0.5%;
+            border-bottom: 1px solid $tc;
+            margin-bottom: 0.5%;
+          }
+          li {
+            height: 100%;
+            &:hover, &:focus {
+              background-color: white;
+            }
+          }
+          &:hover, &:focus {
+            height: 400px;
+            width: 100%;
+            display: block;
+            padding: 1em 0;
+          }
+          .underLink {
+            @include cfl(2);
+            padding: 0;
+            padding-left: 0;
+            padding-right: 0;
+            height: 150px;
+            &:hover, &:focus {
+              background-color: transparent;
+            }
+            & + .underLink {
+              @include cl(2);
+            }
+
+            &:before {
+              content: "";
+              display: none;
+            }
+            .img {
+              height: 65%;
+              overflow: hidden;
+              position: relative;
+
+              img {
+                display: block;
+                //max-height: 100%;
+                max-width: 100%;
+                margin: auto;
+              }
+            }
+            span {
+              height: 35%;
+              width: 100%;
+              @include box-sizing(border-box);
+              padding: 2% 0;
+              display: inline-block;
+              vertical-align: middle;
+              color: $tc;
+            }
+            a {
+              padding-left: 0;
+              padding-right: 0;
+              color: $tc;
+              display: block;
+              padding-top: 0;
+              border-bottom: 4px solid transparent;
+              &:hover, &:focus {
+                border-bottom: 0;
+                border-bottom: 4px solid $mc;
+                @include border-radius(0);
+                @include transition(all 0.3s ease);
+                span {
+                  color: $mc;
+                }
+                img {
+                  @include opacity(0.5);
+                }
+              }
+            }
+
+          }
+          .underLink.categorie {
+            a {
+              display: block;
+              padding-top: 50px;
+              color: $tc;
+              background-color: white;
+              @include transition(background-color 0.3s ease);
+              &:hover, &:focus {
+                @include transition(background-color 0.3s ease);
+                color: white;
+                background-color: $greyDB;
+              }
+            }
+          }
+
+        }
+      }
+      li + li {
+        @include cl-nm(2);
+
+      }
+
+    }
+  }
+  .menu {
+    display: none;
+    overflow: visible;
+    border-bottom: 0;
+    .menuLink {
+      display: block;
+      height: 50px;
+    }
+
+  }
+  .hyperlinks {
+    display: none;
+    float: left;
+    background-color: $mc;
+    //@include abs-bot();
+    height: 50px;
+    @include horizontal-list();
+    width: 100%;
+    text-align: center;
+    ul {
+      height: 50px;
+    }
+    li {
+      @include cfl(2);
+      height: 50px;
+      box-sizing: border-box;
+      //overflow:hidden;
+      a {
+        max-width: 100%;
+      }
+    }
+    li + li {
+      @include cl(2);
+      position: relative;
+      text-overflow: ellipsis;
+    }
+    a {
+      word-break: break-all;
+      color: white;
+      text-decoration: none;
+      font-family: $ff2;
+      display: inline-block;
+      height: 100%;
+      box-sizing: border-box;
+      text-overflow: ellipsis;
+      width: 100%;
+      padding-top: 10px;
+    }
+  }
+  /* END MENU */
+}
+
+@media(min-width: 625px) {
+  .adresseChange {
+    form {
+
+    }
+  }
+  .contact {
+    .wrapper {
+      max-width: 600px;
+      margin: auto;
+    }
+  }
+  .orderSteps {
+    li {
+      max-height: 200px;
+      a {
+        height: 100%;
+      }
+      .number {
+        display: inline-block;
+
+        &:after {
+          content: ".";
+          margin-right: 5px;
+        }
+      }
+      .title {
+        display: inline-block;
+      }
+    }
+  }
+  .order3 {
+    .comm {
+
+      label {
+        float: left;
+      }
+    }
+  }
+  .banner {
+    .wrapper {
+      overflow: visible;
+    }
+    .welcome{
+      .logo{
+        margin-top: 20px;
+      }
+    }
+  }
+  .commander {
+    float: right;
+  }
+  .continuer {
+    float: left;
+    margin-top: 1em;
+  }
+  .intro {
+
+    h3 {
+      border-bottom: 0;
+    }
+    .textIntro {
+      @include cfl(6);
+    }
+    .iconIntro {
+      @include cl(5);
+      @include offsetL(1);
+      h4 {
+        display: none;
+      }
+      span {
+        display: none;
+      }
+    }
+  }
+  .titleCategorie {
+    h3 {
+      text-align: center;
+      border-bottom: 0;
+      padding-left: 0.5%;
+    }
+  }
+  .what {
+    @include cl(4);
+    font-size: 1.3em;
+    font-style: italic;
+    display: block;
+    line-height: 1.2;
+    margin-top: 50px;
+    font-weight: bold;
+    position: relative;
+    color: white;
+    padding: 0 35px;
+    text-align: center;
+    margin-left: 0.5%;
+    &:after {
+      display: block;
+      background-image: url('../img/framework/icon/quoteWhite.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 32px;
+      height: 28px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      overflow: visible;
+      visibility: visible;
+
+    }
+    &:before {
+      display: block;
+      background-image: url('../img/framework/icon/quoteWhite1.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 32px;
+      height: 28px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: visible;
+      visibility: visible;
+      content: "";
+    }
+  }
+  .produit {
+
+    .footerProduit {
+      margin-bottom: 3em;
+      &:after {
+        @include clear();
+      }
+    }
+    &:after {
+      @include clear();
+    }
+    .buyContent {
+      @include cfr(5.5);
+      @include offsetL(0.5);
+      text-align: left;
+      border-bottom: 0;
+      .prix {
+        margin-bottom: 0;
+      }
+    }
+    .exerpt {
+      margin-top: 2em;
+      @include cfr(5.5);
+      @include offsetL(0.5);
+    }
+    .imagesProduit {
+      @include cfl(6);
+    }
+    .descriptionProduit {
+
+    }
+  }
+  .panierProduit {
+
+    input[type="submit"] {
+      float: left;
+      display: block;
+      height: 50px;
+      min-width:200px;
+      background-image: none;
+      text-indent: 0px;
+      font-size: 1.2em;
+      &:hover,&:focus{
+        min-width: 200px;
+        padding:0;
+      }
+    }
+  }
+
+
+}
+
+@media(min-width: 800px) and (max-width: 940px) {
+  .banner {
+    height: auto;
+  }
+  .welcome {
+    @include cfl(4);
+    .logo {
+      height: 100%;
+    }
+  }
+  .what {
+    @include cl(6);
+    height: 100%;
+  }
+  .selection {
+
+    .article {
+      @include cfl(3);
+      margin-top: $gutter / 2;
+      margin-bottom: 0;
+      & + .article {
+        margin-top: $gutter / 2;
+
+        @include cl(3);
+
+      }
+    }
+
+  }
+}
+
+@media(min-width: 625px) and (max-width: 800px) {
+  .banner {
+    height: auto;
+  }
+  .welcome {
+    @include cfl(4);
+    .logo {
+      height: 100%;
+    }
+  }
+  .what {
+    @include cl(7);
+    height: 100%;
+  }
+  .panierItem {
+    width: 100%;
+    z-index: 10;
+  }
+  /* ARTICLE */
+  .selection {
+
+    .article {
+      @include cfl(4);
+      margin-top: $gutter / 2;
+      margin-bottom: 0;
+      & + .article {
+        margin-top: $gutter / 2;
+
+        @include cl(4);
+
+      }
+    }
+
+  }
+  .nav {
+    background-color: $mc;
+
+  }
+  .foot {
+    @include cfl(4);
+  }
+  .foot + .foot {
+    @include cl(4);
+  }
+  /* END ARTICLE */
+}
+
+@media(min-width: 750px) {
+  .order3 {
+    .livraison {
+      @include cfl(6);
+      margin-left: 0;
+    }
+    .facturation {
+      @include cl(6);
+      margin-right: 0;
+      width: 49.50%;
+    }
+  }
+}
+
+@media (min-width: $mw) {
+  .hero {
+    h2 {
+      padding-left: $gutter/4;
+    }
+  }
+  .produit {
+    padding: 2em 1.5em;
+  }
+  .elementsCategorie {
+
+  }
+  .invisible-link {
+    li {
+      a {
+        padding-top: 8px;
+      }
+    }
+  }
+}
+
+@media (max-width: $mw) {
+  .invisible-link {
+    li:first-child {
+      border-left: 0;
+    }
+    li:last-child {
+      border-right: 0;
+    }
+  }
+}
+@media (min-width: 1050px){
+  .invisible-link{
+    li{
+      a{
+        padding-top: 8px;
+      }
+    }
+  }
+}

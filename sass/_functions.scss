@@ -1,0 +1,37 @@
+@import "variables";
+$col: 12 ;
+
+$col_margin: 0 ;
+$gout: $gutter;
+
+@function colAlone($nNumber){
+
+  @return ($nNumber / $col * 100%);
+
+}
+
+@function col($nNumber){
+
+  @return ($nNumber / $col * 100%) - (( $gout / $mw * 100% ) / 2);
+
+}
+@function gutter(){
+
+  @return ($gout / $mw * 100%) / 4;
+
+}
+@function colf($nNumber){
+
+  @return ($nNumber / $col * 100%) - (( $gout / $mw * 100% ) / 2);
+
+}
+@function colParent($nNumber , $nParent){
+//8 - 9 ==75%
+  @return (($mw / 100) * (($nParent / $col ) * 100))/ ($mw / 100)*$nNumber+px;
+}
+@function colFix($nNumber , $nParent){
+//4 - 12 ==33% - 100%  = 66% - 100% = 33% - 0 /// 100 % 33%
+  @return ($nNumber / ($nMw / 100)) * (($nParent / ($nMw / 100)) * 100%) / 2 ;
+
+}
+/*l * 100 / 1024*/
