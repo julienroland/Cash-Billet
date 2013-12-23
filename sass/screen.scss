@@ -72,13 +72,9 @@ body {
   @include c(12);
   position:relative;
   height:80%;
-  
-
   .app{
     height:auto;
     min-height: 150px;
-
-
     @include c(12);
     width:300px;
     @include abs();
@@ -87,44 +83,138 @@ body {
     bottom:2em;
     background-color: white;
     @include box-shadow($greyL2 0 0 10px 1px);
+    .bar{
+      padding:0 $pd;
+      line-height: 40px;
+      height:40px;
+      display:block;
+      max-height: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      -o-text-overflow: ellipsis; 
+      text-overflow: ellipsis;
+    }
+    .status{
+      background-color: $greyDB;
+      height:40px;
+      line-height:40px;
+      color:white;
+      .icon{
+        @include cfl(2);
+        height:100%;
+
+      }
+      .nbDistrib{
+        @include cl(9.5);
+        @include offsetL(0.5);
+        text-overflow:ellipsis;
+        
+      }
+    }
+    .addMenu{
+      background-color: $greyL;
+     height:40px;
+     line-height:40px;
+     color:$tc;
+     .icon{
+      @include cfl(2);
+      height:100%;
+
+    }
+    .showMap{
+      @include cl(10.5);
+      @include offsetL(0.5);
+      a{
+        border:0;
+        color:$tc;
+        &:hover,&:focus{
+          @include border-radius(0);
+        }
+      }
+      }
+    }
+    .listGlobal{
+      border-bottom: 1px solid $greyL2;
+      //background-color: $greyL;
+      .agences{
+      @include cfl(6);
+      height:100%;
+      label{
+        padding:0;
+      }
+      select{
+        max-width:80px;
+
+      }
+      }
+      .dimension{
+      @include cl(6);
+      height:100%;
+      padding-left:0.5%;
+      margin-left: 0;
+      a{
+        color:$tc;
+        border:0;
+        &:hover,&:focus{
+          @include border-radius(0);
+        }
+      }
+      }
+    }
+  .icon{
+    vertical-align: middle;
+    display:inline-block!important;
+    max-width: 16px;
+    background-position: center;
   }
+}
 
 }
 .header{
   @include c(12);
-  height:15%;
-  min-height: 60px;
+  height:80px;
   position:relative;
   z-index: 20;
   overflow:hidden;
   padding-bottom: $pd;
   background-color: $greyDB;
+  @include box-shadow($greyD 0 2px 4px 1px);
   .logo{
     max-width:48px;
     @include cfl(3);
     margin:0 auto;
-    max-height: 100%;
+    height: 100%;
     a{
-      display:block;
+      display:inline-block;
       height:100%;
+      line-height: 60px;
+
+      img{
+        margin:0 auto;
+        max-height: 100%;
+        display:inline-block;
+        vertical-align: bottom;
+      }
     }
   }
   .titleApp{
     @include cl(6);
     color:white;
     height:100%;
-    line-height: 50px;
+    line-height: 60px;
     h1{
       border-bottom: 0;
       padding-bottom: 0;
-      height:100%;
-      vertical-align: baseline;
+      font-size: 32px;
+      font-weight:300;
       display:inline-block;
+      vertical-align: bottom;
+      
     }
   }
   .reload{
     height:100%;
-    line-height:50px;
+    line-height:60px;
     float:right;
     width:42px;
     display:inline-block;
@@ -132,9 +222,10 @@ body {
     a{
       display:inline-block;
       text-indent: -99999px;
-      width:100%;
+      width:32px;
+      height:32px;
       border:0;
-      vertical-align: middle;
+      vertical-align: bottom;
       background-image: image-url('framework/icon/reloadWhite.png');
       background-repeat: no-repeat;
       background-size: 32px;

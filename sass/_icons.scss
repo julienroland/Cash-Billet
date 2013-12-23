@@ -13,6 +13,7 @@
     text-indent: -999999px;
     background-size: 100%;
     vertical-align: middle;
+    background-repeat: no-repeat;
   }
   .icon-menu {
 
@@ -59,9 +60,23 @@
   .icon-map-little {
     height: 16px;
     width: 16px;
-    float: right;
+
 
     background-image: url('../img/framework/icon/map-little.png');
+
+  }
+  .icon-gMap-little {
+    height: 16px;
+    width: 16px;
+    background-image: url('../img/framework/icon/gMap-little.png');
+
+  }
+  .icon-map-little-white {
+    height: 16px;
+    width: 16px;
+
+
+    background-image: url('../img/framework/icon/map-littleWhite.png');
 
   }
   .icon-email-little {
