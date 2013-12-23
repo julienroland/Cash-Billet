@@ -155,7 +155,7 @@
   .logo {
     margin: 1em 0;
     border-bottom: 0;
-    border:0!important;
+   // border:0!important;
     a{
       border:0!important;
       &:hover,&:focus{
@@ -280,6 +280,14 @@
   right: 0;
   //top:0;
   bottom: 0;
+  margin: auto;
+}
+@mixin abs-top() {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top:0;
+  //bottom: 0;
   margin: auto;
 }
 @mixin form(){

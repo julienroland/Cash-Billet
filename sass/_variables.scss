@@ -1,8 +1,8 @@
 @import "compass";
 /* CONFIG */
-$mw:1200px;
+$mw:600px;
 
-$nMw: 1200;
+$nMw: 600;
 
 $gutter: 24px;
 
@@ -11,9 +11,11 @@ $nbG:1.618; // nombre d'or
 $bh:1px solid #eee;
 /* typography */
 
-$ff: palatino, 'palatino lt std', 'palatino linotype', 'book antiqua', garamond, serif;
+$ff:  helvetica ,"helvetica neue", arial, sans-serif;
 
-$ff2: Oswald,'Helvetica neue', arial, freesans, clean, sans-serif;
+$ff1:palatino, 'palatino lt std', 'palatino linotype', 'book antiqua', garamond, serif;
+
+//$ff2: Oswald,'Helvetica neue', arial, freesans, clean, sans-serif;
 
 $fs:15px; //font-size
 
@@ -30,6 +32,9 @@ $errorBackground: lighten(red,40%);
 $infosBackground: lighten(yellow,40%);
 
 $succesBackground: lighten(green,60%);
+
+$pd: 0.5em;
+
 /* END typography */
 
 /*media*/
@@ -42,7 +47,7 @@ $m2:1200px;
 
 /*COLOR*/
 //$mc: #2e70ea; //main color
-$mc: #317AE8;
+$mc: #3BA2E2;
 
 $mcc: darken(#2e70ea,20%);
 

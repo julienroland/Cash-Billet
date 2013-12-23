@@ -20,41 +20,84 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
             <![endif]-->
 
-            <h1 class="section" role="heading" aria-level="1">Bienvenue sur le site de ....</h1>
+            <h1 class="section" role="heading" aria-level="1">Bienvenue sur la web app Cash Billet</h1>
             <section class="container">
-                <h2 class="section" role="heading" aria-level="2">Contenu principal de la page</h2>
+                <h1 class="section" role="heading" aria-level="1">Contenu principal de l'application</h1>
+                <div class="loading"><span class="textLoading">Chargement en cours ...</span></div>
+                <div class="wrapper map-content">
+                 <div id="gmap">
 
-                <section class="banner">
-                <h2 class="section" role="heading" aria-level="2">Haut de contenu</h2>
-                    <nav class="nav" id="nav" role="navigation">
-                    <a href="#main" class="reader">Passer directement au contenu</a>
-                    <h2 class="section" role="heading" aria-level="2">Navigation de la page</h2>
-                    </nav>
+                 </div>
+             </div> 
+             <header class="header" role="banner">
+              <h1 class="section" role="heading" aria-level="1">Bannière de l'application</h1>
+              <div class="wrapper">
+                  <div class="logo">
+                      <a href="index.html">
+                         <img src="./img/logo.png" height="50px" alt="Logo de Cash Billet"/>
+                     </a>
+                 </div>  
+                 <span class="titleApp">
+                  <h1 role="heading" aria-level="1">Cash Billet</h1>
+              </span>
+              <div class="reload">
+                  <a href="index.html" title="Recharger la page">Recharger la page</a>
+              </div>
+          </div> 
+      </header>  
+      
+      <section class="main" id="main">
+       <h1 class="section" role="heading" aria-level="1">Contenu principal de l'application</h1>
 
-                </section>
-                <section class="main" id="main">
-                     <h2 class="section" role="heading" aria-level="2">Contenu principal de la page</h2>
 
-                </section>
-                <footer class="foot" role="contentinfo">
-                 <h2 class="section" role="heading" aria-level="2">Informations additionelles à la page</h2>
-                    <a href="#main" class="reader">Remonter au contenu</a>
-                    <a href="#nav" class="reader">Revenir à la navigation</a>
-                </footer>
-            </section>
+       <section class="app wrapper">
+          <h1 class="section" role="heading" aria-level="1">L'application</h1>
 
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-            <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-            <script src="js/main.js"></script>
+          <div class="status">
+              <span class="icon icon-map png">Icône d'un marker</span>
+              <span>9 distributeurs à proximité (Namur)</span>
+          </div>
+          <div class="addMenu">
+              <span class="icon icon-map">Icône d'un marker</span>
+              <span>Voir les distributeurs sur la carte</span>
 
-            <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-            <script>
-                (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-                    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-                e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-                e.src='//www.google-analytics.com/analytics.js';
-                r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-                ga('create','UA-XXXXX-X');ga('send','pageview');
-            </script>
-        </body>
-        </html>
+          </div>
+          <div class="listGlobal">
+              <div class="agences">
+
+              </div>
+              <div class="dimension">
+
+              </div>
+          </div>
+      </div>
+  </section>
+
+</section>
+<footer class="footer wrapper" role="footer">
+  <div class="wrapper">
+      <h1 class="section" role="heading" aria-level="1">Intéraction relatif à l'application</h1>
+      <div class="back"
+      ></div>
+      <div class="mapInteraction">
+
+      </div>
+  </div>
+</footer>
+</section> 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&sensor=false"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+<script src="js/main.js"></script>
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='//www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-XXXXX-X');ga('send','pageview');
+</script>
+</body>
+</html>
