@@ -250,12 +250,14 @@ body {
   }
 }
 .appOne{
-  height:100px;
+  height:90px;
   background-color: white;
-  @include abs();
+  @include abs-top();
+  top:2em;
   width:300px;
   z-index:20;
-
+  @include box-shadow($greyD2 0 0 8px 1px);
+  display:none; //MAQUETTE
   .bar{
 
     line-height: 50px;
@@ -270,7 +272,7 @@ body {
   .details{
     background-color: orange;
     color:white;
-    height:60px;
+    height:50px;
     line-height: 1.2;
     .title{
       @include c(12);
@@ -308,7 +310,7 @@ body {
       font-size: 14px;
       line-height: 1.1;
       display:inline-block;
-      overflow: hidden;
+      font-weight: bold;
       overflow:hidden;
       text-overflow: ellipsis;
       margin-left: 40px;
@@ -348,6 +350,7 @@ body {
       font-size: 1.4em;
       line-height: 40px;
       text-align: center;
+      border-left: 1px solid $greyL2;
       span{
         vertical-align: middle;
         display:inline-block;
