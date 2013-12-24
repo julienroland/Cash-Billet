@@ -84,66 +84,66 @@ body {
     bottom:2em;
     background-color: white;
     @include box-shadow($greyD2 0 0 8px 1px);
-    display:none; //MAQUETTE
-    .bar{
-      padding:0 $pd;
-      line-height: 40px;
-      height:40px;
-      display:block;
-      max-height: 100%;
-      max-width: 100%;
-      overflow: hidden;
-      -o-text-overflow: ellipsis; 
-      text-overflow: ellipsis;
-    }
-    .status{
-      background-color: $greyDB;
-      height:40px;
-      line-height:40px;
-      color:white;
-      .icon{
-        @include cfl(2);
-        height:100%;
-
-      }
-      .nbDistrib{
-        @include cl(9.5);
-        @include offsetL(0.5);
-        text-overflow:ellipsis;
-        
-      }
+   // display:none; //MAQUETTE
+   .bar{
+    padding:0 $pd;
+    line-height: 40px;
+    height:40px;
+    display:block;
+    max-height: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    -o-text-overflow: ellipsis; 
+    text-overflow: ellipsis;
+  }
+  .status{
+    background-color: $greyDB;
+    height:40px;
+    line-height:40px;
+    color:white;
+    .icon{
+      @include cfl(2);
+      height:100%;
 
     }
-    .menuFix{
-      height:120px;
-      overflow:hidden;
-    }
-    .addMenu{
-      background-color: $greyL;
-      height:40px;
-      line-height:40px;
-      color:$tc;
-      .icon{
-        @include cfl(2);
-        height:100%;
+    .nbDistrib{
+      @include cl(9.5);
+      @include offsetL(0.5);
+      text-overflow:ellipsis;
 
-      }
-      .showMap{
-        @include cl(10.5);
-        @include offsetL(0.5);
-        a{
-          border-bottom:1px dotted $tc;
-          color:$tc;
-          &:hover,&:focus{
-            border-right: 1px solid $tc;
-            border-left: 1px solid $tc;
-            border-bottom: 0;
-          }
+    }
+
+  }
+  .menuFix{
+    height:120px;
+    overflow:hidden;
+  }
+  .addMenu{
+    background-color: $greyL;
+    height:40px;
+    line-height:40px;
+    color:$tc;
+    .icon{
+      @include cfl(2);
+      height:100%;
+
+    }
+    .showMap{
+      @include cl(10.5);
+      @include offsetL(0.5);
+      a{
+        border-bottom:1px dotted $tc;
+        color:$tc;
+        &:hover,&:focus{
+          border-right: 1px solid $tc;
+          border-left: 1px solid $tc;
+          border-bottom: 0;
         }
       }
     }
-    .listGlobal{
-      border-bottom: 1px solid $greyL2;
+  }
+  .listGlobal{
+    border-bottom: 1px solid $greyL2;
       //background-color: $greyL;
       .agences{
         @include cfl(6);
@@ -443,13 +443,36 @@ body {
   @include c(12);
   height:200px;
   overflow-y:scroll;
-
+  ul{
+    @include transition(all 0.3s ease);
+  }
   li{
     @include c(12);
     height:40px;
     position:relative;
     overflow:hidden;
+    &.more{
+      a{
+        text-align: center;
+        color:$greyD2;
+        border-bottom:1px solid $greyL2;
+        border-top:1px solid $greyL2;
+        @include box-sizing(border-box);
+        padding:0 $pd;
+        &:hover,&:focus{
+          background-color:$greyD;
+          color:white;
+        }
+        span{
 
+        }  
+        .icon{
+          float:none;
+          vertical-align: middle;
+        }
+      }
+      
+    }
     a{
       display:block;
       width:100%;
@@ -507,23 +530,26 @@ body {
     .titleBank{
       float:left;
       font-weight: bold;
-      color:orange;
+      color:$tc;
       width:auto;
       display:inline-block;
     }
   }
   .dimension{
-    border-bottom: 0.5px solid $greyL;
+    border-bottom: 1px solid $greyL;
     padding:0 $pd;
     @include cl-nm(4);
     height:100%;
     line-height: 40px;
-    background-color: orange;
+    background-color: $tc;
     color:white;
     font-weight: bold;
     text-align: right;
     span{
       vertical-align: middle;
+      &:after{
+        content:"m";
+      }
     }
   }
 }
