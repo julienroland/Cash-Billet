@@ -39,6 +39,6 @@
  	};
 
 
- 	$( document ).ready( initialize );
+ 	$( window ).ready( initialize );
 
  }).call(this,jQuery);

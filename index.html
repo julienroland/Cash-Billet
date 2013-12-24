@@ -25,72 +25,188 @@
                 <h1 class="section" role="heading" aria-level="1">Contenu principal de l'application</h1>
                 <div class="loading"><span class="textLoading">Chargement en cours ...</span></div>
                 <div class="wrapper map-content">
-                 <div id="gmap">
+                   <div id="gmap">
 
-                 </div>
-             </div> 
-             <header class="header" role="banner">
-              <h1 class="section" role="heading" aria-level="1">Bannière de l'application</h1>
-              <div class="wrapper">
-                  <div class="logo">
-                      <a href="index.html">
-                         <img src="./img/logo.png"  alt="Logo de Cash Billet"/>
-                     </a>
-                 </div>  
-                 <span class="titleApp">
-                  <h1 role="heading" aria-level="1">Cash Billet</h1>
-              </span>
-              <div class="reload">
-                  <a href="index.html" title="Recharger la page">Recharger la page</a>
-              </div>
-          </div> 
-      </header>  
+                   </div>
+               </div> 
+               <header class="header" role="banner">
+                  <h1 class="section" role="heading" aria-level="1">Bannière de l'application</h1>
+                  <div class="wrapper">
+                      <div class="logo">
+                          <a href="index.html">
+                           <img src="./img/logo.png"  alt="Logo de Cash Billet"/>
+                       </a>
+                   </div>  
+                   <span class="titleApp">
+                       <a href="index.html" title="Aller à l'accueil de l'application">
+                          <h1 role="heading" aria-level="1">Cash Billet</h1>
+                      </a>
+                  </span>
+                  <div class="reload">
+                      <a href="index.html" title="Recharger la page">Recharger la page</a>
+                  </div>
+              </div> 
+          </header>  
 
-      <section class="main" id="main">
-       <h1 class="section" role="heading" aria-level="1">Contenu principal de l'application</h1>
+          <section class="main" id="main">
+             <h1 class="section" role="heading" aria-level="1">Contenu principal de l'application</h1>
 
 
-       <section class="app wrapper">
-          <h1 class="section" role="heading" aria-level="1">L'application</h1>
-          <div class="menuFix">
-              <div class="status bar">
-                  <span class="icon icon-map-little-white png">Icône d'un marker</span>
-                  <span class="nbDistrib">9 distributeurs à proximité (Namur)</span>
-              </div>
-              <div class="addMenu bar">
-                  <span class="icon icon-gMap-little">Icône d'un marker</span>
-                  <span class="showMap"><a href="javascript:void()" title="Voir la carte avec les distributeurs">Voir les distributeurs sur la carte</a></span>
+             <section class="app wrapper">
+              <h1 class="section" role="heading" aria-level="1">L'application</h1>
+              <div class="menuFix">
+                  <div class="status bar">
+                      <span class="icon icon-map-little-white png">Icône d'un marker</span>
+                      <span class="nbDistrib">9 distributeurs à proximité (Namur)</span>
+                  </div>
+                  <div class="addMenu bar">
+                      <span class="icon icon-gMap-little">Icône d'un marker</span>
+                      <span class="showMap"><a href="javascript:void()" title="Voir la carte avec les distributeurs">Voir les distributeurs sur la carte</a></span>
 
-              </div>
-              <div class="listGlobal bar">
-                  <div class="agences">
-                    <label for="agence">Bank</label>
-                    <select name="agence" id="agence">
-                        <option value="axa">Axa</option>
-                        <option value="bmp">Bmp</option>
-                    </select>
-                </div>
-                <div class="dimension">
-                    <a href="javascript:void()" title="Voir la distance en mètre">Voir en mètre(m)</a>
+                  </div>
+                  <div class="listGlobal bar">
+                      <div class="agences">
+                        <label for="agence">Bank</label>
+                        <select name="agence" id="agence">
+                            <option value="axa">Axa</option>
+                            <option value="bmp">Bmp</option>
+                        </select>
+                    </div>
+                    <div class="dimension">
+                        <a href="javascript:void()" title="Voir la distance en mètre">Voir en mètre (m)</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="list">
-            
+            <div class="listBank">
+               <ul>
+                <li>
+                    <a href="javascript:void()" title="Voir la fiche de la bank">
+                        <span class="overBank">Voir cette bank (ING)</span>
+                        <div class="infosBank" data-type="FF7F00">
+                            <div class="logoBank">
+                                <img src="http://static.cash-cache.com/banks/ing.png" alt="Logo de la bank IGN">
+                            </div>
+                            <span class="titleBank">ING</span>
+                        </div>
+                        <div class="dimension">
+                            <span>300m</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void()" title="Voir la fiche de la bank">
+                        <span class="overBank">Voir cette bank (ING)</span>
+                        <div class="infosBank" data-type="FF7F00">
+                            <div class="logoBank">
+                                <img src="http://static.cash-cache.com/banks/belfius.png" alt="Logo de la bank IGN">
+                            </div>
+                            <span class="titleBank">ING</span>
+                        </div>
+                        <div class="dimension">
+                            <span>300m</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void()" title="Voir la fiche de la bank">
+                        <span class="overBank">Voir cette bank (ING)</span>
+                        <div class="infosBank" data-type="FF7F00">
+                            <div class="logoBank">
+                                <img src="http://static.cash-cache.com/banks/ing.png" alt="Logo de la bank IGN">
+                            </div>
+                            <span class="titleBank">ING</span>
+                        </div>
+                        <div class="dimension">
+                            <span>300m</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void()" title="Voir la fiche de la bank">
+                        <span class="overBank">Voir cette bank (ING)</span>
+                        <div class="infosBank" data-type="FF7F00">
+                            <div class="logoBank">
+                                <img src="http://static.cash-cache.com/banks/ing.png" alt="Logo de la bank IGN">
+                            </div>
+                            <span class="titleBank">ING</span>
+                        </div>
+                        <div class="dimension">
+                            <span>300m</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void()" title="Voir la fiche de la bank">
+                        <span class="overBank">Voir cette bank (ING)</span>
+                        <div class="infosBank" data-type="FF7F00">
+                            <div class="logoBank">
+                                <img src="http://static.cash-cache.com/banks/ing.png" alt="Logo de la bank IGN">
+                            </div>
+                            <span class="titleBank">ING</span>
+                        </div>
+                        <div class="dimension">
+                            <span>300m</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void()" title="Voir la fiche de la bank">
+                        <span class="overBank">Voir cette bank (ING)</span>
+                        <div class="infosBank" data-type="FF7F00">
+                            <div class="logoBank">
+                                <img src="http://static.cash-cache.com/banks/ing.png" alt="Logo de la bank IGN">
+                            </div>
+                            <span class="titleBank">ING</span>
+                        </div>
+                        <div class="dimension">
+                            <span>300m</span>
+                        </div>
+                    </a>
+                </li> 
+                <li>
+                    <a href="javascript:void()" title="Voir la fiche de la bank">
+                        <span class="overBank">Voir cette bank (ING)</span>
+                        <div class="infosBank" data-type="FF7F00">
+                            <div class="logoBank">
+                                <img src="http://static.cash-cache.com/banks/ing.png" alt="Logo de la bank IGN">
+                            </div>
+                            <span class="titleBank">ING</span>
+                        </div>
+                        <div class="dimension">
+                            <span>300m</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </section>
-
+<section class="appDistrib wrapper">
+              <h1 class="section" role="heading" aria-level="1">L'application</h1>
+              <div class="menuFix">
+                  <div class="status bar">
+                      <span class="icon icon-menu-white"></span>
+                      <span>Voir la liste</span>
+                  </div>
+              
+            </div>
+    </section>
 </section>
-<footer class="footer wrapper" role="footer">
+<footer class="footer" role="footer">
   <div class="wrapper">
       <h1 class="section" role="heading" aria-level="1">Intéraction relatif à l'application</h1>
-      <div class="back"
-      ></div>
-      <div class="mapInteraction">
-
+      <div class="back">
+          <a href="javascript:void()" title="Revenir en arrière">
+              <span class="icon icon-chevron-left"></span>
+              <span>Retour</span>
+          </a>
       </div>
-  </div>
+      <div class="mapInteraction" title="Me localiser sur la carte">
+          <a href="javascript:void()">
+            <span><span class="icon icon-location"></span>Me localiser</span>
+        </a>
+    </div>
+</div>
 </footer>
 </section> 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&sensor=false"></script>

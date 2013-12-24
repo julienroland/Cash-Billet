@@ -15,9 +15,15 @@
     vertical-align: middle;
     background-repeat: no-repeat;
   }
-  .icon-menu {
+  .icon-menu-white {
 
     background-image: url('../img/framework/icon/menu2White.png');
+  }
+  .icon-chevron-left {
+    height: 32px;
+    width: 32px;
+    background-image: url('../img/framework/icon/chevron-left.png');
+
   }
   .icon-chevron-left-little {
     width: 16px;
@@ -65,6 +71,13 @@
     background-image: url('../img/framework/icon/map-little.png');
 
   }
+  .icon-location {
+    height: 32px;
+    width: 32px;
+    background-image: url('../img/framework/icon/location.png');
+
+  }
+
   .icon-gMap-little {
     height: 16px;
     width: 16px;

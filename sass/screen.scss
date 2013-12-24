@@ -73,8 +73,9 @@ body {
   position:relative;
   height:80%;
   .app{
+
     height:auto;
-    min-height: 150px;
+    height:320px;
     @include c(12);
     width:300px;
     @include abs();
@@ -82,7 +83,8 @@ body {
     z-index: 20;
     bottom:2em;
     background-color: white;
-    @include box-shadow($greyL2 0 0 10px 1px);
+    @include box-shadow($greyD2 0 0 8px 1px);
+    display:none; //MAQUETTE
     .bar{
       padding:0 $pd;
       line-height: 40px;
@@ -110,65 +112,124 @@ body {
         text-overflow:ellipsis;
         
       }
+
+    }
+    .menuFix{
+      height:120px;
+      overflow:hidden;
     }
     .addMenu{
       background-color: $greyL;
-     height:40px;
-     line-height:40px;
-     color:$tc;
-     .icon{
-      @include cfl(2);
-      height:100%;
+      height:40px;
+      line-height:40px;
+      color:$tc;
+      .icon{
+        @include cfl(2);
+        height:100%;
 
-    }
-    .showMap{
-      @include cl(10.5);
-      @include offsetL(0.5);
-      a{
-        border:0;
-        color:$tc;
-        &:hover,&:focus{
-          @include border-radius(0);
-        }
       }
+      .showMap{
+        @include cl(10.5);
+        @include offsetL(0.5);
+        a{
+          border-bottom:1px dotted $tc;
+          color:$tc;
+          &:hover,&:focus{
+            border-right: 1px solid $tc;
+            border-left: 1px solid $tc;
+            border-bottom: 0;
+          }
+        }
       }
     }
     .listGlobal{
       border-bottom: 1px solid $greyL2;
       //background-color: $greyL;
       .agences{
-      @include cfl(6);
-      height:100%;
-      label{
-        padding:0;
-      }
-      select{
-        max-width:80px;
+        @include cfl(6);
+        height:100%;
+        label{
+          padding:0;
+        }
+        select{
+          max-width:80px;
 
-      }
-      }
-      .dimension{
-      @include cl(6);
-      height:100%;
-      padding-left:0.5%;
-      margin-left: 0;
-      a{
-        color:$tc;
-        border:0;
-        &:hover,&:focus{
-          @include border-radius(0);
         }
       }
+      .dimension{
+        @include cl(6);
+        height:100%;
+        padding-left:0.5%;
+        margin-left: 0;
+        a{
+          color:$tc;
+          border-bottom:1px dotted $tc;
+          &:hover,&:focus{
+            border-right: 1px solid $tc;
+            border-left: 1px solid $tc;
+            border-bottom: 0;
+          }
+        }
       }
     }
-  .icon{
-    vertical-align: middle;
-    display:inline-block!important;
-    max-width: 16px;
-    background-position: center;
+    .icon{
+      vertical-align: middle;
+      display:inline-block!important;
+      max-width: 16px;
+      background-position: center;
+    }
   }
-}
+  .appDistrib{
+    height:auto;
+    height:50px;
+    @include c(12);
+    width:300px;
+    z-index: 20;
+   // bottom:2em;
+    background-color: white;
+    @include box-shadow($greyD2 0 0 8px 1px);
+    @include abs-top();
+    top:2em;
+    //display:none; //MAQUETTE
+    .menuFix{
+      height:50px;
+    }
+    .bar{
+      padding:0 $pd;
+      line-height: 50px;
+      height:50px;
+      display:block;
+      max-height: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      -o-text-overflow: ellipsis; 
+      text-overflow: ellipsis;
+    }
+    .status{
+      background-color: $greyDB;
+      height:50px;
+      line-height:50px;
+      color:white;
+      .icon{
+        @include cfl(2);
+        height:100%;
 
+      }
+      .nbDistrib{
+        @include cl(9.5);
+        @include offsetL(0.5);
+        text-overflow:ellipsis;
+        
+      }
+
+    }
+    .icon{
+      vertical-align: middle;
+      display:inline-block!important;
+      max-width: 16px;
+      background-position: center;
+    }
+  }
 }
 .header{
   @include c(12);
@@ -179,6 +240,9 @@ body {
   padding-bottom: $pd;
   background-color: $greyDB;
   @include box-shadow($greyD 0 2px 4px 1px);
+  .wrapper{
+    max-width: 600px;
+  }
   .logo{
     max-width:48px;
     @include cfl(3);
@@ -211,6 +275,13 @@ body {
       vertical-align: bottom;
       
     }
+    a{
+      color:white;
+      border:0;
+      &:hover,&:focus{
+        @include border-radius(0);
+      }
+    }
   }
   .reload{
     height:100%;
@@ -232,83 +303,182 @@ body {
       background-position: center;
       &:hover,&:focus{
         @include border-radius(0); 
+        @include rotate(720deg);
+        @include transition(all 2s ease);
       }
+    }
+  }
+}
+.listBank{
+  @include c(12);
+  height:200px;
+  overflow-y:scroll;
+
+  li{
+    @include c(12);
+    height:40px;
+    position:relative;
+    overflow:hidden;
+
+    a{
+      display:block;
+      width:100%;
+      height:100%;
+      border:0;
+      padding-left: 0;
+      padding-right: 0;
+      line-height: 40px;
+      @include transition(all 0.3s ease);
+
+      &:hover,&:focus{
+        @include border-radius(0);
+        background-color: orange;
+        .overBank{
+          opacity:1;
+          @include transition(all 0.3s ease);
+        }
+      }
+    }
+  }
+  .overBank{
+    display:inline-block;
+    @include abs();
+    color:$tc;
+    z-index: 10;
+    @include transition(all 0.3s ease);
+    opacity: 0;
+    background-color: white;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .infosBank{
+    @include cl-nm(8);
+    padding:0 $pd;
+    border-bottom: 1px solid $greyL2;
+    line-height: 40px;
+    height:100%;
+    .logoBank{
+      width:32px;
+      height:100%;
+      float:left;
+      line-height: 40px;
+      text-align: center;
+      display:inline-block;
+      vertical-align: middle;
+      img{
+        margin:0 auto;
+        display:inline-block;
+        width:16px;
+        vertical-align: middle;
+        height:16px;
+      }
+    }
+    .titleBank{
+      float:left;
+      font-weight: bold;
+      color:orange;
+      width:auto;
+      display:inline-block;
+    }
+  }
+  .dimension{
+    border-bottom: 0.5px solid $greyL;
+    padding:0 $pd;
+    @include cl-nm(4);
+    height:100%;
+    line-height: 40px;
+    background-color: orange;
+    color:white;
+    font-weight: bold;
+    text-align: right;
+    span{
+      vertical-align: middle;
     }
   }
 }
 .footer{
   @include c(12);
   height:10%;
-  background-color: $greyL2;
-  min-height: 50px;
-
+  overflow:hidden;
+  position: fixed;
+  bottom:0;
+  z-index: 20;
+  background-color: white;
+  background:linear-gradient(to bottom,lighten($greyL,10%) 0,#efefef 100%);
+  height: 50px;
+  .wrapper{
+    max-width: 600px;
+    padding:0 $pd;
+  }
+  .back{
+    display:inline-block;
+    min-width:100px;
+    @include cfl(6);
+    height:100%;
+    float:left;
+    line-height: 50px;
+    span{
+      display:inline;
+      vertical-align: middle;
+    }
+    .icon{
+      display:inline-block;
+      vertical-align: middle;
+      float:none;
+    }
+    a{
+      color:$tc;
+      border: 0;
+      display:block;
+      padding:0 $pd;
+      @include transition(all 0.3s ease);
+      text-align: center;
+      &:hover,&:focus{
+        @include transition(all 0.3s ease);
+        background-color: $greyDB;
+        @include border-radius(0);
+        color:white;
+        .icon{
+          background-image: image-url('framework/icon/chevron-leftWhite.png');
+        }
+      }
+    }
+  }
+  .mapInteraction{
+    @include cl(6);
+    min-width: 100px;
+    height:100%;
+    line-height:50px;
+    span{
+      display:inline;
+      vertical-align: middle;
+    }
+    .icon{
+      display:inline-block;
+      vertical-align: middle;
+      float:none;
+    }
+    a{
+      color:$tc;
+      border: 0;
+      padding:0 $pd;
+      display:block;
+      text-align: center;
+      @include transition(all 0.3s ease);
+      &:hover,&:focus{
+        @include transition(all 0.3s ease);
+        background-color: $greyDB;
+        @include border-radius(0);
+        color:white;
+        .icon{
+          background-image: image-url('framework/icon/locationWhite.png');
+        }
+      }
+    }
+  }
 }
 
 /* MEDIA QUERIES */
 @import "responsive";
 /* END MEDIA*/
-/*.wrapper{
-    border:2px solid white;
-    border-bottom: 0;
-    background-color: $mc;
-  }
-  .logo{
-    width:auto;
-    min-width: 58px;
-    float:left;
-    height:100%;
-    display:inline-block;
-    margin-top: 0;
-    line-height: 50px;
-    margin-bottom: 0;
-    padding:0 $pd;
-    border-right: 1px solid white;
-    a{
-      display:inline-block;
-      vertical-align: middle;
-      font-size: 1em;
-    }
-    img{
-      text-indent: -99999px;
-      margin:0 auto;
-      display:inline-block;
-      vertical-align: middle;
-    }
-  }
-  .titleApp{
-    line-height: 50px;
-    @include cl(6);
-    height:100%;
-    padding:0 $pd;
-    h1{
-      font-size: 24px;
-      border-bottom: 0;
-      color:white;
-      display: inline-block;
-      vertical-align: middle;
-      padding: 0;
-      margin:0 auto;
-    }
-  }
-  .reload{
-    height:100%;
-    line-height:50px;
-    float:right;
-    width:42px;
-    display:inline-block;
-    padding:0 $pd;
-    a{
-      display:inline-block;
-      text-indent: -99999px;
-      width:100%;
-      border:0;
-      vertical-align: middle;
-      background-image: image-url('framework/icon/reloadWhite.png');
-      background-repeat: no-repeat;
-      background-size: 32px;
-      background-position: center;
-      &:hover,&:focus{
-        @include border-radius(0); 
-      }
-    }
-  }*/
