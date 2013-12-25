@@ -17,7 +17,7 @@
  	oMyPosition,
  	oData,
  	$listBank = $('.listing'),
- 	$listAgences = $('.agences'),
+ 	$listAgences = $('#agence'),
  	uUrlAPI;
 
  	$(function(){
@@ -35,8 +35,19 @@
  			navigator.geolocation.getCurrentPosition(getPositionSucces,getPositionError);
  		}
  	};
- 	var orderByAgence = function(){
- 		console.log('d');
+ 	var orderByAgence = function( e ){
+ 		var nIdBank = parseFloat($(this).find('option:selected').val());
+ 		
+ 		if(nIdBank === 0){
+
+			$('.listing li').slideDown();
+
+ 		}else{
+
+ 			$('.listing li').not("[data-id='"+nIdBank+"']").slideUp();
+ 			$('.listing li[data-id="'+nIdBank+'"]').slideDown();
+
+ 		}
  	};
  	var getPositionSucces = function( oPosition ){ 
  		oMyPosition = oPosition.coords;  //OBJ LAT LNG;
@@ -66,26 +77,27 @@
 
  				if(oResponse.error === false){
  					oData = oResponse.data;
- 					var aAgences = [];
+ 					var aAgences = $.unique([]);
 
  					/* AFFICHER LES BANKS DANS LE HTML*/
  					for( var i = 0; i<=10; i++){
 
- 						$listBank.append('<li><a href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
+ 						$listBank.append('<li data-id="'+oData[i].bank.id+'"><a href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
  						/* AFFICHER LA LISTE DES NOMS DE BANK DANS LE SELECT*/
 
- 						aAgences[oData[i].bank.id] = oData[i].bank.name;
+ 						aAgences.push([oData[i].bank.id,oData[i].bank.name]);
 
- 						
  					};
  					
- 					console.log(aAgences);
+ 					//console.log($.unique(aAgences));
+
+
  					$listBank.append('<li class="more"><a href="javascript:void()" title="Voir plus de banques"><span class="icon icon-plus-grey"></span><span>Voir plus de distributeurs</span></a></li>');
  					
  					/* AFFICHER LA LISTE DES NOMS DE BANK DANS LE SELECT*/
- 					for( var i = 0; i<=aAgences.id; i++){
+ 					for( var i = 0; i<=aAgences.length -1; i++){
 
- 						$listAgences.append(aAgences[i]);
+ 						$listAgences.append('<option value="'+aAgences[i][0]+'">'+aAgences[i][1]+'</option>');
  					}
  					
 
