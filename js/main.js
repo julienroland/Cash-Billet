@@ -13,7 +13,10 @@
  	"use strict";
  	var gMap,
  	gStartPosition = new google.maps.LatLng(50 ,8 ),
- 	gMarker = new google.maps.Marker,
+ 	gMarkerBank = new google.maps.Marker,
+ 	gMarkerMy = new google.maps.Marker,
+ 	uIconBank = './img/framework/icon/markerBank.png',
+ 	uIconMy = './img/framework/icon/markerMy.png',
  	oMyPosition,
  	oData,
  	a,
@@ -110,7 +113,7 @@
 
  				if(oData[i].bank){
 
- 					$more.before('<li data-id="'+oData[i].bank.id+'"><a href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
+ 					$more.before('<li data-id="'+oData[i].bank.id+'"><a href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
 
  					if(!agenceExist(oData[i].bank.id , aAgences)){
  						aAgences.push([oData[i].bank.id,oData[i].bank.name]);
@@ -119,6 +122,7 @@
  			};
  			
  			addAgenceSelect();
+ 			drawBankMarker(  );
  			nMaxList += addMoreBank;
  		}
  		else{
@@ -144,6 +148,12 @@
  	};
  	var getPositionSucces = function( oPosition ){ 
  		oMyPosition = oPosition.coords;  //OBJ LAT LNG;
+
+ 		gMarkerMy.setMap( gMap );
+ 		gMarkerMy.setPosition( new google.maps.LatLng(oMyPosition.latitude,oMyPosition.longitude ));
+ 		gMarkerMy.setIcon( uIconMy);
+ 		
+ 		
  		updatePosition(); //Recentrer sur la position
  		requestBankFromApi(); //demander les banks
  	};	
@@ -173,11 +183,25 @@
  					
  					displayList( nMaxList );
  					addAgenceSelect(  );
+ 					drawBankMarker(  );
+ 					
  					
  				};
  			},
  		});
  	};
+ 	var drawBankMarker = function(){
+ 		for(var i = 0; i<=nMaxList;i++){
+
+ 			gMarkerBank = new google.maps.Marker({
+ 				position: new google.maps.LatLng(oData[i].latitude,oData[i].longitude),
+ 				map: gMap,
+ 				icon: uIconBank
+ 			});
+
+ 		}
+ 	};
+
  	var displayList = function( nMaxList ){
  		if((nMaxList + addMoreBank) <= oData.length){
  			for( var i = 0; i<=nMaxList-1; i++){
@@ -237,7 +261,7 @@
 
  		gMap = new google.maps.Map(document.getElementById('gmap'),{
  			center:gStartPosition,
- 			zoom:10,
+ 			zoom:16,
  			disableDefaultUI:true,
  			scrollwheel:false,
  			mapTypeId:google.maps.MapTypeId.ROADMAP,
