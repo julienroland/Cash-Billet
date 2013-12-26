@@ -16,6 +16,7 @@
  	gMarker = new google.maps.Marker,
  	oMyPosition,
  	oData,
+ 	found = -1,
  	$listBank = $('.listing'),
  	$listAgences = $('#agence'),
  	uUrlAPI;
@@ -40,7 +41,7 @@
  		
  		if(nIdBank === 0){
 
-			$('.listing li').slideDown();
+ 			$('.listing li').slideDown();
 
  		}else{
 
@@ -77,35 +78,53 @@
 
  				if(oResponse.error === false){
  					oData = oResponse.data;
- 					var aAgences = $.unique([]);
+ 					var aAgences =[];
 
  					/* AFFICHER LES BANKS DANS LE HTML*/
  					for( var i = 0; i<=10; i++){
-
+ 						
  						$listBank.append('<li data-id="'+oData[i].bank.id+'"><a href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
- 						/* AFFICHER LA LISTE DES NOMS DE BANK DANS LE SELECT*/
+ 						
 
- 						aAgences.push([oData[i].bank.id,oData[i].bank.name]);
+ 						if(AgenceExist(oData[i].bank.id , aAgences)){
+ 							console.log('exist');
+ 						}
+ 						else
+ 						{
+ 							aAgences.push([oData[i].bank.id,oData[i].bank.name]);
+ 						}
+ 						
 
- 					};
- 					
- 					//console.log($.unique(aAgences));
+ 						
+
+ 						
 
 
- 					$listBank.append('<li class="more"><a href="javascript:void()" title="Voir plus de banques"><span class="icon icon-plus-grey"></span><span>Voir plus de distributeurs</span></a></li>');
- 					
+
+ 					};// ENDFOR
  					/* AFFICHER LA LISTE DES NOMS DE BANK DANS LE SELECT*/
  					for( var i = 0; i<=aAgences.length -1; i++){
 
  						$listAgences.append('<option value="'+aAgences[i][0]+'">'+aAgences[i][1]+'</option>');
  					}
+ 					$listBank.append('<li class="more"><a href="javascript:void()" title="Voir plus de banques"><span class="icon icon-plus-grey"></span><span>Voir plus de distributeurs</span></a></li>');
  					
-
- 				}else{
- 					//TODO AFFICHER UN MESSAGE D ERREUR
- 				}
+ 				};
  			},
  		});
+};
+var AgenceExist  = function( aBaseArray , aArrayToCheck ){
+
+
+	for(var a = 0; a<=10;a++){
+
+		if($.inArray( aBaseArray , aArrayToCheck[a] ) >= 0){
+			return true;
+
+		}
+		
+	}
+
 };
 var updatePosition = function(  ){
 	var gMyPosition = new google.maps.LatLng( oMyPosition.latitude , oMyPosition.longitude );
