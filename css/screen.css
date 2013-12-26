@@ -752,7 +752,8 @@ body {
         box-sizing: border-box;
         height: 100%;
         padding-left: 0.5%;
-        margin-left: 0; }
+        margin-left: 0;
+        text-indent: -999999px; }
         .main .app .listGlobal .dimension:after {
           content: "";
           display: block;
@@ -761,11 +762,29 @@ body {
           visibility: hidden; }
         .main .app .listGlobal .dimension a {
           color: #111111;
-          border-bottom: 1px dotted #111111; }
+          background-image: url('../img/framework/icon/car.png?1387891946');
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: 32px 32px;
+          border-bottom: 1px dotted #111111;
+          display: block;
+          border: 0;
+          -webkit-transition: all 0.3s ease;
+          -moz-transition: all 0.3s ease;
+          -o-transition: all 0.3s ease;
+          transition: all 0.3s ease; }
           .main .app .listGlobal .dimension a:hover, .main .app .listGlobal .dimension a:focus {
-            border-right: 1px solid #111111;
-            border-left: 1px solid #111111;
-            border-bottom: 0; }
+            border: 0;
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            -ms-border-radius: 0;
+            -o-border-radius: 0;
+            border-radius: 0;
+            background-position: 90% center;
+            -webkit-transition: all 0.4s ease;
+            -moz-transition: all 0.4s ease;
+            -o-transition: all 0.4s ease;
+            transition: all 0.4s ease; }
     .main .app .icon {
       vertical-align: middle;
       display: inline-block !important;

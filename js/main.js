@@ -23,6 +23,10 @@
  	$dimension = $('.listGlobal .dimension'),
  	nMaxList = 10,
  	addMoreBank = 20,
+ 	nTime = 60,
+ 	nCarSpeed = 50,
+ 	nFootSpeed = 5,
+ 	nTypeUnit = 1, //1  = mètre, 2 = seconde,3 = minute
  	aAgences = [],
  	uUrlAPI;
 
@@ -39,13 +43,63 @@
 
  		displayGoogleMap();
 
+ 		locateMe();
+ 	};
+ 	var locateMe = function(){
  		if(navigator.geolocation){
  			navigator.geolocation.getCurrentPosition(getPositionSucces,getPositionError);
  		}
  	};
  	var changeUnit = function( e ){
  		e.preventDefault();
- 		console.log($listBank.find('.dimension').text());
+ 		var $Dimension;
+ 		$Dimension = $listBank.find('.dimension');
+
+ 		if(nTypeUnit === 1){ //mètre
+ 			toTimeCar( $Dimension);
+ 			$dimension.find('a').css({
+ 				backgroundImage: 'url(./img/framework/icon/walk.png)',
+ 			});
+ 		}
+ 		else if(nTypeUnit === 2){ //seconde car
+ 			
+ 			toTimeFoot( $Dimension);
+ 			$dimension.find('a').css({
+ 				backgroundImage: 'url(./img/framework/icon/bird.png)',
+ 			});
+ 		}
+ 		else if(nTypeUnit === 3){ //minute foot
+ 			toMeter( $Dimension);
+
+ 			$dimension.find('a').css({
+ 				backgroundImage: 'url(./img/framework/icon/car.png)',
+ 			});
+ 		}
+ 		
+ 	};
+ 	var toTimeCar = function( $Dimension ){ // etape 1
+ 		$Dimension.each(function(){
+ 			var time  = Math.round(( 3600 / 50000 ) * parseFloat($(this).attr('data-dimension')));
+ 			$(this).html(time+'\"');
+ 		});
+ 		nTypeUnit = 2; //minute car
+ 		
+ 	};
+ 	var toMeter = function( $Dimension ){
+ 		$Dimension.each(function(){
+ 			var meter  = $(this).attr('data-dimension');
+ 			$(this).html(meter+'m');
+ 		});
+ 		nTypeUnit = 1; //meter
+ 		
+ 	};
+ 	var toTimeFoot = function( $Dimension ){// etape 2
+ 		$Dimension.each(function(){
+ 			var time  = Math.round((( 60 / 5 ) * parseFloat($(this).attr('data-dimension')) / 1000));
+ 			$(this).html(time+'\'');
+ 		});
+ 		nTypeUnit = 3; //seconde car
+ 		
  	};
  	var moreBankInList = function( e ){
  		e.preventDefault();
@@ -128,7 +182,7 @@
  		if((nMaxList + addMoreBank) <= oData.length){
  			for( var i = 0; i<=nMaxList-1; i++){
 
- 				$listBank.append('<li data-id="'+oData[i].bank.id+'"><a href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
+ 				$listBank.append('<li data-id="'+oData[i].bank.id+'"><a href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
 
  				if(!agenceExist(oData[i].bank.id , aAgences)){
  					aAgences.push([oData[i].bank.id,oData[i].bank.name]);

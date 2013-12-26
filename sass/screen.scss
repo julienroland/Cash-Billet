@@ -161,13 +161,22 @@ body {
         height:100%;
         padding-left:0.5%;
         margin-left: 0;
+        text-indent: -999999px; 
         a{
           color:$tc;
+          background-image:image-url('framework/icon/car.png');
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: 32px 32px;
           border-bottom:1px dotted $tc;
+          display:block;
+          border:0;
+          @include transition(all 0.3s ease);
           &:hover,&:focus{
-            border-right: 1px solid $tc;
-            border-left: 1px solid $tc;
-            border-bottom: 0;
+            border:0;
+            @include border-radius(0);
+            background-position: 90% center;
+            @include transition(all 0.4s ease);
           }
         }
       }
