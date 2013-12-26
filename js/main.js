@@ -16,13 +16,18 @@
  	gMarker = new google.maps.Marker,
  	oMyPosition,
  	oData,
+ 	a,
  	found = -1,
  	$listBank = $('.listing'),
  	$listAgences = $('#agence'),
+ 	nMaxList = 10,
+ 	addMoreBank = 20,
+ 	aAgences = [],
  	uUrlAPI;
 
  	$(function(){
  		$listAgences.on('change',orderByAgence);
+ 		$('.listing').on('click', '.more a' ,moreBankInList );
 
  	});
 
@@ -36,6 +41,30 @@
  			navigator.geolocation.getCurrentPosition(getPositionSucces,getPositionError);
  		}
  	};
+ 	var moreBankInList = function( e ){
+ 		e.preventDefault();
+ 		
+ 		console.log('max:'+oData.length);
+ 		console.log('maxList:'+nMaxList);
+
+ 		if((nMaxList + addMoreBank) <= oData.length){
+
+ 			for( var i = nMaxList; i<=(nMaxList+addMoreBank)-1; i++){
+ 				console.log(oData[i].bank);
+ 				if(oData[i].bank){
+
+ 					$('.more').before('<li data-id="'+oData[i].bank.id+'"><a href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
+
+ 					if(!agenceExist(oData[i].bank.id , aAgences)){
+ 						aAgences.push([oData[i].bank.id,oData[i].bank.name]);
+ 					}
+ 				}
+ 			};
+ 			addAgenceSelect();
+ 		}
+ 		nMaxList += addMoreBank; 
+ 	};
+
  	var orderByAgence = function( e ){
  		var nIdBank = parseFloat($(this).find('option:selected').val());
  		
@@ -75,77 +104,86 @@
  			cache:'true',
  			success:function(oResponse){
  				console.log(oResponse);
-
  				if(oResponse.error === false){
+
  					oData = oResponse.data;
- 					var aAgences =[];
-
- 					/* AFFICHER LES BANKS DANS LE HTML*/
- 					for( var i = 0; i<=10; i++){
- 						
- 						$listBank.append('<li data-id="'+oData[i].bank.id+'"><a href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
- 						
-
- 						if(AgenceExist(oData[i].bank.id , aAgences)){
- 							console.log('exist');
- 						}
- 						else
- 						{
- 							aAgences.push([oData[i].bank.id,oData[i].bank.name]);
- 						}
- 						
-
- 						
-
- 						
-
-
-
- 					};// ENDFOR
- 					/* AFFICHER LA LISTE DES NOMS DE BANK DANS LE SELECT*/
- 					for( var i = 0; i<=aAgences.length -1; i++){
-
- 						$listAgences.append('<option value="'+aAgences[i][0]+'">'+aAgences[i][1]+'</option>');
- 					}
- 					$listBank.append('<li class="more"><a href="javascript:void()" title="Voir plus de banques"><span class="icon icon-plus-grey"></span><span>Voir plus de distributeurs</span></a></li>');
+ 					
+ 					displayList( nMaxList );
+ 					addAgenceSelect(  );
  					
  				};
  			},
  		});
-};
-var AgenceExist  = function( aBaseArray , aArrayToCheck ){
+ 	};
+ 	var displayList = function( nMaxList ){
+ 		if((nMaxList + addMoreBank) <= oData.length){
+ 			for( var i = 0; i<=nMaxList-1; i++){
+
+ 				$listBank.append('<li data-id="'+oData[i].bank.id+'"><a href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
+
+ 				if(!agenceExist(oData[i].bank.id , aAgences)){
+ 					aAgences.push([oData[i].bank.id,oData[i].bank.name]);
+ 				}
+
+ 			};
+ 		}
+ 	};
+ 	var addAgenceSelect = function(  ){
+
+ 		console.log($(this));
+ 		if($listAgences.find('option').size() > 1){
+
+ 			$listAgences.find('option').remove();
+
+ 			for( var i = 0; i<=aAgences.length -1; i++){
+
+ 				$listAgences.append('<option value="'+aAgences[i][0]+'">'+aAgences[i][1]+'</option>');
+ 			}
+ 			$listAgences.find('option:first-child').before('<option value="0">Toutes</option>');
+
+ 		}else{
+
+ 			for( var i = 0; i<=aAgences.length -1; i++){
+
+ 				$listAgences.append('<option value="'+aAgences[i][0]+'">'+aAgences[i][1]+'</option>');
+ 			}
+ 			$listBank.append('<li class="more"><a href="" title="Voir plus de banques"><span class="icon icon-plus-grey"></span><span>Voir plus de distributeurs</span></a></li>');
+ 		}
 
 
-	for(var a = 0; a<=10;a++){
+ 		
+ 		
+ 	};
+ 	var agenceExist  = function( aBaseArray , aArrayToCheck ){
 
-		if($.inArray( aBaseArray , aArrayToCheck[a] ) >= 0){
-			return true;
+ 		for(var a = 0; a<=nMaxList; a++){
 
-		}
-		
-	}
+ 			if($.inArray( aBaseArray , aArrayToCheck[a] ) >= 0){
+ 				return true;
 
-};
-var updatePosition = function(  ){
-	var gMyPosition = new google.maps.LatLng( oMyPosition.latitude , oMyPosition.longitude );
-	gMap.panTo( gMyPosition );
-
-
-};
-var displayGoogleMap = function(){
-
-	gMap = new google.maps.Map(document.getElementById('gmap'),{
-		center:gStartPosition,
-		zoom:10,
-		disableDefaultUI:true,
-		scrollwheel:false,
-		mapTypeId:google.maps.MapTypeId.ROADMAP,
-	});
-
-};
+ 			}	
+ 		}
+ 	};
+ 	var updatePosition = function(  ){
+ 		var gMyPosition = new google.maps.LatLng( oMyPosition.latitude , oMyPosition.longitude );
+ 		gMap.panTo( gMyPosition );
 
 
+ 	};
+ 	var displayGoogleMap = function(){
 
-$( window ).ready( initialize );
+ 		gMap = new google.maps.Map(document.getElementById('gmap'),{
+ 			center:gStartPosition,
+ 			zoom:10,
+ 			disableDefaultUI:true,
+ 			scrollwheel:false,
+ 			mapTypeId:google.maps.MapTypeId.ROADMAP,
+ 		});
 
-}).call(this,jQuery);
+ 	};
+
+
+
+ 	$( window ).ready( initialize );
+
+ }).call(this,jQuery);
