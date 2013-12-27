@@ -262,7 +262,8 @@ a{
   }
 }
 .appOne{
-  height:90px;
+  min-height:90px;
+  height:auto;
   background-color: white;
   @include abs-top();
   top:2em;
@@ -282,9 +283,10 @@ a{
     text-overflow: ellipsis;
   }
   .details{
-    background-color: orange;
+    background-color: $greyDB;
     color:white;
-    height:50px;
+    min-height:50px;
+    height:auto;
     line-height: 1.2;
     .title{
       @include c(12);

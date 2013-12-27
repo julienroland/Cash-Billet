@@ -904,7 +904,8 @@ a {
       background-position: center; }
 
 .appOne {
-  height: 90px;
+  min-height: 90px;
+  height: auto;
   background-color: white;
   position: absolute;
   left: 0;
@@ -928,9 +929,10 @@ a {
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis; }
   .appOne .details {
-    background-color: orange;
+    background-color: #2d292a;
     color: white;
-    height: 50px;
+    min-height: 50px;
+    height: auto;
     line-height: 1.2; }
     .appOne .details .title {
       width: 100%;
