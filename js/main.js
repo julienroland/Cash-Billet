@@ -20,12 +20,14 @@
  	uIconMy = './img/framework/icon/markerMy.png',
  	oMyPosition,
  	oData,
+ 	oDataOne,
  	$listBank = $('.listing'),
  	$listAgences = $('#agence'),
  	$dimension = $('.listGlobal .dimension'),
  	$showMapOnly = $('.showMap'),
  	$app = $('.app'),
  	$appMap = $('.appDistrib'),
+ 	$appOne = $('.appOne'),
  	nMaxList = 10,
  	addMoreBank = 20,
  	nTime = 60,
@@ -66,16 +68,9 @@
 
  	};
  	var showThisBank = function( e ){
- 		console.log(gMarkerBank);
- 		
- 		for(var i = 0;i<=nMaxList;i++){
+ 		oDataOne = oData[this.id];
+ 		changeViewToOne( oDataOne );
 
- 			if(e.latLng.lat() === oData[i].latitude && e.latLng.lng() === oData[i].longitude){
- 				console.log(oData[i]);
- 				console.log('match');
- 			}
-
- 		}
  	};
  	var changeView = function( oSelector ){
  		if(oSelector){
@@ -109,6 +104,27 @@
  		history.pushState ( {selector:'.app',old:'.appDistrib'}, e.target.rel, e.target.rel + ".html");
  		$appMap.fadeOut('fast');
  		$app.fadeIn();
+
+ 	};	
+ 	var changeViewToOne = function( oDataOne ){
+
+ 		//history.pushState ( {selector:'.app',old:'.appDistrib'}, e.target.rel, e.target.rel + ".html");
+ 		$appMap.fadeOut('fast');
+ 		$app.fadeOut('fast');
+ 		$appOne.fadeIn();
+
+ 		console.log( oDataOne );
+ 		var foot  = Math.round((( nTime / nFootSpeed ) * parseFloat(oDataOne.distance) / 1000));
+ 		//header
+ 		$appOne.find('.details').css('background-color','#'+oDataOne.bank.color);
+ 		$appOne.find('img').attr('src',oDataOne.bank.icon);
+ 		$appOne.find('h2').html(oDataOne.bank.name);
+ 		$appOne.find('h2>a').attr('href',oDataOne.bank.url);
+ 		$appOne.find('address').html(oDataOne.address);
+ 		//distance
+ 		$appOne.find('.nb').html(foot+'\'');
+ 		$appOne.find('.distance>span').html(oDataOne.distance+'m');
+
 
  	};
  	var interactionMap = function( e ){
@@ -253,7 +269,7 @@
  		});
  	};
  	var drawBankMarker = function(){
- 		for(var i = 0; i<=nMaxList;i++){
+ 		for(var i = 0; i<=nMaxList-1;i++){
  			var marker
  			
  			marker = new google.maps.Marker({
@@ -263,9 +279,8 @@
  				id: i,
  				title:"Voir le detail de la banque"
  			});
- 			google.maps.event.addListener(marker, "click",showThisBank);
  			gMarkerBank.push(marker);
- 			
+ 			google.maps.event.addListener(marker, "click",showThisBank);
  		}
  	};
 

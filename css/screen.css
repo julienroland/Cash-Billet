@@ -461,6 +461,16 @@ img {
   width: 32px;
   background-image: url("../img/framework/icon/car.png"); }
 
+.icon-foot {
+  height: 32px;
+  width: 32px;
+  background-image: url("../img/framework/icon/walk.png"); }
+
+.icon-car {
+  height: 32px;
+  width: 32px;
+  background-image: url("../img/framework/icon/car.png"); }
+
 .icon-location {
   height: 32px;
   width: 32px;
@@ -951,7 +961,7 @@ a {
         -moz-box-sizing: border-box;
         box-sizing: border-box;
         background-color: white;
-        padding: 0.5em; }
+        padding: 1px; }
       .appOne .details .title h2 {
         font-size: 18px;
         display: inline-block;
@@ -960,7 +970,7 @@ a {
         padding-bottom: 0;
         vertical-align: bottom;
         border-bottom: 0;
-        margin-left: 0.5em; }
+        margin-left: 10px; }
     .appOne .details .address {
       width: 100%;
       margin: auto;
@@ -977,7 +987,7 @@ a {
       font-weight: bold;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin-left: 40px;
+      margin-left: 28px;
       padding: 0 0.5em;
       color: white; }
       .appOne .details .address:after {
@@ -1012,11 +1022,18 @@ a {
         height: 0;
         clear: both;
         visibility: hidden; }
+      .appOne .dimension .time a {
+        border: 0;
+        color: #111111; }
+        .appOne .dimension .time a:hover, .appOne .dimension .time a:after {
+          -webkit-border-radius: 0;
+          -moz-border-radius: 0;
+          -ms-border-radius: 0;
+          -o-border-radius: 0;
+          border-radius: 0; }
       .appOne .dimension .time .nb {
         vertical-align: middle;
         display: inline-block; }
-        .appOne .dimension .time .nb:after {
-          content: "'"; }
       .appOne .dimension .time .icon {
         vertical-align: middle;
         float: none;
@@ -1045,8 +1062,6 @@ a {
       .appOne .dimension .distance span {
         vertical-align: middle;
         display: inline-block; }
-        .appOne .dimension .distance span:after {
-          content: "m"; }
 
 .header {
   width: 100%;

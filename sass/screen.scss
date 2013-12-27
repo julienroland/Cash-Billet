@@ -301,7 +301,7 @@ a{
         max-width: 32px;
         @include box-sizing(border-box);
         background-color: white;
-        padding:$pd;
+        padding:1px;
       }
       h2{
         font-size: 18px;
@@ -311,7 +311,7 @@ a{
         padding-bottom: 0;
         vertical-align: bottom;
         border-bottom: 0;
-        margin-left: $pd;
+        margin-left: 10px;
       }
 
     }
@@ -325,7 +325,7 @@ a{
       font-weight: bold;
       overflow:hidden;
       text-overflow: ellipsis;
-      margin-left: 40px;
+      margin-left:28px;
       padding:0 $pd;
       color:white;
     }
@@ -342,12 +342,17 @@ a{
       font-size: 1.4em;
       font-weight: bold;
       text-align: center;
+      a{
+        border:0;
+        color:$tc;
+        &:hover,&:after{
+          @include border-radius(0);
+        }
+      }
       .nb{
         vertical-align: middle;
         display:inline-block;
-        &:after{
-          content:"'";
-        }
+
       }
       .icon{
         vertical-align: middle;
@@ -366,9 +371,7 @@ a{
       span{
         vertical-align: middle;
         display:inline-block;
-        &:after{
-          content:"m";
-        }
+ 
       }
     }
   }
