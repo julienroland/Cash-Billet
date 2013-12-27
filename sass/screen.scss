@@ -76,8 +76,7 @@ a{
   position:relative;
   height:80%;
   .app{  
-    height:80%;
-    min-height:320px;
+    height:320px;
     @include c(12);
     width:300px;
     @include abs();
@@ -454,8 +453,7 @@ a{
 }
 .listBank{
   @include c(12);
-  min-height:200px;
-  height:70%;
+  height:200px;
   overflow-y:scroll;
   ul{
     @include transition(all 0.3s ease);

@@ -13,7 +13,8 @@
  	"use strict";
  	var gMap,
  	gStartPosition = new google.maps.LatLng(50 ,8 ),
- 	gMarkerBank = new google.maps.Marker,
+ 	gMarkerBank = [],
+ 	aMarkerBank ={},
  	gMarkerMy = new google.maps.Marker,
  	uIconBank = './img/framework/icon/markerBank.png',
  	uIconMy = './img/framework/icon/markerMy.png',
@@ -45,6 +46,7 @@
 
  		window.addEventListener( "popstate", historyHasChanged);
 
+
  	});
 
  	var initialize = function(){
@@ -55,8 +57,8 @@
 
  		history.pushState ( {selector:'.app',old:'.appDistrib'}, "index", "index.html");
 
- 		google.maps.event.addListener(gMarkerBank, 'click', showThisBank);
  		
+
  		locateMe();
  	};
  	var historyHasChanged = function( e ){
@@ -64,8 +66,16 @@
 
  	};
  	var showThisBank = function( e ){
- 		console.log(e);
- 		console.log('ok');
+ 		console.log(gMarkerBank);
+ 		
+ 		for(var i = 0;i<=nMaxList;i++){
+
+ 			if(e.latLng.lat() === oData[i].latitude && e.latLng.lng() === oData[i].longitude){
+ 				console.log(oData[i]);
+ 				console.log('match');
+ 			}
+
+ 		}
  	};
  	var changeView = function( oSelector ){
  		if(oSelector){
@@ -165,7 +175,7 @@
 
  				if(oData[i].bank){
 
- 					$more.before('<li data-id="'+oData[i].bank.id+'"><a href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
+ 					$more.before('<li data-id="'+i+'" data-idBank="'+oData[i].bank.id+'"><a href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
 
  					if(!agenceExist(oData[i].bank.id , aAgences)){
  						aAgences.push([oData[i].bank.id,oData[i].bank.name]);
@@ -193,8 +203,8 @@
 
  		}else{
 
- 			$listingLi.not("[data-id='"+nIdBank+"']").slideUp();
- 			$('.listing li[data-id="'+nIdBank+'"]').slideDown();
+ 			$listingLi.not("[data-idBank='"+nIdBank+"']").slideUp();
+ 			$('.listing li[data-idBank="'+nIdBank+'"]').slideDown();
 
  		}
  	};
@@ -244,14 +254,18 @@
  	};
  	var drawBankMarker = function(){
  		for(var i = 0; i<=nMaxList;i++){
-
- 			gMarkerBank = new google.maps.Marker({
+ 			var marker
+ 			
+ 			marker = new google.maps.Marker({
  				position: new google.maps.LatLng(oData[i].latitude,oData[i].longitude),
  				map: gMap,
  				icon: uIconBank,
+ 				id: i,
  				title:"Voir le detail de la banque"
  			});
-
+ 			google.maps.event.addListener(marker, "click",showThisBank);
+ 			gMarkerBank.push(marker);
+ 			
  		}
  	};
 
@@ -259,7 +273,7 @@
  		if((nMaxList + addMoreBank) <= oData.length){
  			for( var i = 0; i<=nMaxList-1; i++){
 
- 				$listBank.append('<li data-id="'+oData[i].bank.id+'"><a href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
+ 				$listBank.append('<li data-id="'+i+'" data-idBank="'+oData[i].bank.id+'"><a href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
 
  				if(!agenceExist(oData[i].bank.id , aAgences)){
  					aAgences.push([oData[i].bank.id,oData[i].bank.name]);
