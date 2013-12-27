@@ -59,7 +59,7 @@
 
  		displayGoogleMap();
 
- 		history.pushState ( {selector:'.app',old:'.appDistrib'}, "index", "index.html");
+ 		history.pushState ( {selector:'.app'}, "index", "index.html");
 
  		
 
@@ -76,11 +76,27 @@
  	};
  	var changeView = function( oSelector ){
  		if(oSelector){
- 			var $selector = $(oSelector.selector),
- 			$old = $(oSelector.old);
-
- 			$old.fadeOut('fast');
- 			$selector.fadeIn('fast');
+ 			
+ 			var $selector = $(oSelector.selector);
+ 			console.log($app);
+ 			if($selector.selector == $app.selector){
+ 				console.log('app');
+ 				$appMap.fadeOut('fast');
+ 				$appOne.fadeOut('fast');
+ 				$app.fadeIn('fast');
+ 			}
+ 			else if($selector.selector == $appMap.selector){
+ 				console.log('appDistrib');
+ 				$app.fadeOut('fast');
+ 				$appOne.fadeOut('fast');
+ 				$appMap.fadeIn('fast');
+ 			}
+ 			else if($selector.selector == $appOne.selector){
+ 				console.log('appOne');
+ 				$app.fadeOut('fast');
+ 				$appMap.fadeOut('fast');
+ 				$appOne.fadeIn('fast');	
+ 			}
  		}
  	};
  	var reloadPage = function(){
@@ -96,21 +112,22 @@
  	};
  	var changeViewToMap = function( e ){
  		e.preventDefault();
- 		history.pushState ( {selector:'.appDistrib',old:'.app'}, e.target.rel, e.target.rel + ".html");
+ 		history.pushState ( {selector:'.appDistrib'}, e.target.rel, e.target.rel + ".html");
  		$app.fadeOut('fast');
  		$appMap.fadeIn();
 
  	};
  	var changeViewToList = function( e ){
  		e.preventDefault();
- 		history.pushState ( {selector:'.app',old:'.appDistrib'}, e.target.rel, e.target.rel + ".html");
+ 		history.pushState ( {selector:'.app'}, e.target.rel, e.target.rel + ".html");
  		$appMap.fadeOut('fast');
  		$app.fadeIn();
 
  	};	
  	var changeViewToOneFromApp = function( e ){
  		e.preventDefault();
- 		history.pushState ( {selector:'.appOne',old:'.app'}, e.target.rel, e.target.rel + ".html");
+ 		console.log($(this));
+ 		history.pushState ( {selector:'.appOne'}, $(this).attr('rel'), $(this).attr('rel').toLowerCase().split(' ').join('-') + ".html");
  		$appMap.fadeOut('fast');
  		$app.fadeOut('fast');
  		$appOne.fadeIn();
@@ -129,7 +146,7 @@
  		$appOne.find('.distance>span').html(oDataOne.distance+'m');
  	};
  	var changeViewToOne = function( oDataOne ){
- 		history.pushState ( {selector:'.appOne',old:'.appDistrib'}, e.target.rel, e.target.rel + ".html");
+ 		history.pushState ( {selector:'.appOne'}, oDataOne.bank.name, 'bank-'+oDataOne.bank.name.toLowerCase().split(' ').join('-')+ ".html");
  		$appMap.fadeOut('fast');
  		$app.fadeOut('fast');
  		$appOne.fadeIn();
