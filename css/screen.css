@@ -515,6 +515,9 @@ body {
   background-color: #2d292a;
   height: 100%; }
 
+a {
+  cursor: pointer; }
+
 .container {
   height: 100%;
   position: relative;
@@ -592,8 +595,8 @@ body {
     clear: both;
     visibility: hidden; }
   .main .app {
-    height: auto;
-    height: 320px;
+    height: 80%;
+    min-height: 320px;
     width: 100%;
     margin: auto;
     display: block;
@@ -671,7 +674,9 @@ body {
           clear: both;
           visibility: hidden; }
     .main .app .menuFix {
-      height: 120px;
+      min-height: 120px;
+      max-height: 120px;
+      height: 30%;
       overflow: hidden; }
     .main .app .addMenu {
       background-color: #f2f2f2;
@@ -780,7 +785,6 @@ body {
             -ms-border-radius: 0;
             -o-border-radius: 0;
             border-radius: 0;
-            background-position: 90% center;
             -webkit-transition: all 0.4s ease;
             -moz-transition: all 0.4s ease;
             -o-transition: all 0.4s ease;
@@ -1174,7 +1178,8 @@ body {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  height: 200px;
+  min-height: 200px;
+  height: 70%;
   overflow-y: scroll; }
   .listBank:after {
     content: "";

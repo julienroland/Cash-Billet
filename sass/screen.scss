@@ -24,6 +24,9 @@ body {
   background-color: $greyDB;
   height:100%;
 }
+a{
+  cursor:pointer;
+}
 .container{
   height:100%;
   position:relative;
@@ -72,10 +75,9 @@ body {
   @include c(12);
   position:relative;
   height:80%;
-  .app{
-
-    height:auto;
-    height:320px;
+  .app{  
+    height:80%;
+    min-height:320px;
     @include c(12);
     width:300px;
     @include abs();
@@ -115,7 +117,9 @@ body {
 
   }
   .menuFix{
-    height:120px;
+    min-height:120px;
+    max-height:120px;
+    height:30%;
     overflow:hidden;
   }
   .addMenu{
@@ -175,7 +179,7 @@ body {
           &:hover,&:focus{
             border:0;
             @include border-radius(0);
-            background-position: 90% center;
+            //background-position: 90% center;
             @include transition(all 0.4s ease);
           }
         }
@@ -450,7 +454,8 @@ body {
 }
 .listBank{
   @include c(12);
-  height:200px;
+  min-height:200px;
+  height:70%;
   overflow-y:scroll;
   ul{
     @include transition(all 0.3s ease);

@@ -19,11 +19,12 @@
  	uIconMy = './img/framework/icon/markerMy.png',
  	oMyPosition,
  	oData,
- 	a,
- 	found = -1,
  	$listBank = $('.listing'),
  	$listAgences = $('#agence'),
  	$dimension = $('.listGlobal .dimension'),
+ 	$showMapOnly = $('.showMap'),
+ 	$app = $('.app'),
+ 	$appMap = $('.appDistrib'),
  	nMaxList = 10,
  	addMoreBank = 20,
  	nTime = 60,
@@ -37,6 +38,12 @@
  		$listAgences.on('change',orderByAgence);
  		$listBank.on('click', '.more a' ,moreBankInList );
  		$dimension.on('click','a',changeUnit);
+ 		$('.mapInteraction').on('click','a',interactionMap);
+ 		$('.reload').on('click','a',reloadPage);
+ 		$showMapOnly.on('click','a',changeViewToMap);
+ 		$appMap.on('click','a',changeViewToList);
+
+ 		window.addEventListener( "popstate", historyHasChanged);
 
  	});
 
@@ -46,12 +53,57 @@
 
  		displayGoogleMap();
 
+ 		history.pushState ( {selector:'.app',old:'.appDistrib'}, "index", "index.html");
+
+ 		google.maps.event.addListener(gMarkerBank, 'click', showThisBank);
+ 		
  		locateMe();
+ 	};
+ 	var historyHasChanged = function( e ){
+ 		changeView(e.state ? e.state : "index.html");
+
+ 	};
+ 	var showThisBank = function( e ){
+ 		console.log(e);
+ 		console.log('ok');
+ 	};
+ 	var changeView = function( oSelector ){
+ 		if(oSelector){
+ 			var $selector = $(oSelector.selector),
+ 			$old = $(oSelector.old);
+
+ 			$old.fadeOut('fast');
+ 			$selector.fadeIn('fast');
+ 		}
+ 	};
+ 	var reloadPage = function(){
+ 		location.reload();
  	};
  	var locateMe = function(){
  		if(navigator.geolocation){
  			navigator.geolocation.getCurrentPosition(getPositionSucces,getPositionError);
+ 		}else{
+
+ 			alert('Impossible de vous localiser !');
  		}
+ 	};
+ 	var changeViewToMap = function( e ){
+ 		e.preventDefault();
+ 		history.pushState ( {selector:'.appDistrib',old:'.app'}, e.target.rel, e.target.rel + ".html");
+ 		$app.fadeOut('fast');
+ 		$appMap.fadeIn();
+
+ 	};
+ 	var changeViewToList = function( e ){
+ 		e.preventDefault();
+ 		history.pushState ( {selector:'.app',old:'.appDistrib'}, e.target.rel, e.target.rel + ".html");
+ 		$appMap.fadeOut('fast');
+ 		$app.fadeIn();
+
+ 	};
+ 	var interactionMap = function( e ){
+ 		e.preventDefault();
+ 		locateMe();
  	};
  	var changeUnit = function( e ){
  		e.preventDefault();
@@ -196,7 +248,8 @@
  			gMarkerBank = new google.maps.Marker({
  				position: new google.maps.LatLng(oData[i].latitude,oData[i].longitude),
  				map: gMap,
- 				icon: uIconBank
+ 				icon: uIconBank,
+ 				title:"Voir le detail de la banque"
  			});
 
  		}
