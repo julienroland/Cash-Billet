@@ -971,6 +971,15 @@ a {
         vertical-align: bottom;
         border-bottom: 0;
         margin-left: 10px; }
+        .appOne .details .title h2 a {
+          color: white;
+          border: 0; }
+          .appOne .details .title h2 a:hover, .appOne .details .title h2 a:focus {
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            -ms-border-radius: 0;
+            -o-border-radius: 0;
+            border-radius: 0; }
     .appOne .details .address {
       width: 100%;
       margin: auto;
@@ -1024,7 +1033,8 @@ a {
         visibility: hidden; }
       .appOne .dimension .time a {
         border: 0;
-        color: #111111; }
+        color: #111111;
+        display: block; }
         .appOne .dimension .time a:hover, .appOne .dimension .time a:after {
           -webkit-border-radius: 0;
           -moz-border-radius: 0;

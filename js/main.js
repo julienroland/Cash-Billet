@@ -34,6 +34,7 @@
  	nCarSpeed = 50,
  	nFootSpeed = 5,
  	nTypeUnit = 1, //1  = mètre, 2 = seconde,3 = minute
+ 	nTypeUnitOne = 1, //1 = minute(foot) 2 = seconde(car)
  	aAgences = [],
  	uUrlAPI;
 
@@ -45,7 +46,8 @@
  		$('.reload').on('click','a',reloadPage);
  		$showMapOnly.on('click','a',changeViewToMap);
  		$appMap.on('click','a',changeViewToList);
-
+ 		$('.time').on('click','a',changeUnitOne);
+ 		$listBank.on('click','a',changeViewToOneFromApp);
  		window.addEventListener( "popstate", historyHasChanged);
 
 
@@ -106,15 +108,15 @@
  		$app.fadeIn();
 
  	};	
- 	var changeViewToOne = function( oDataOne ){
-
- 		//history.pushState ( {selector:'.app',old:'.appDistrib'}, e.target.rel, e.target.rel + ".html");
+ 	var changeViewToOneFromApp = function( e ){
+ 		e.preventDefault();
+ 		history.pushState ( {selector:'.appOne',old:'.app'}, e.target.rel, e.target.rel + ".html");
  		$appMap.fadeOut('fast');
  		$app.fadeOut('fast');
  		$appOne.fadeIn();
+ 		var id = parseFloat($(this).attr('data-id'));
+ 		var oDataOne = oData[id];
 
- 		console.log( oDataOne );
- 		var foot  = Math.round((( nTime / nFootSpeed ) * parseFloat(oDataOne.distance) / 1000));
  		//header
  		$appOne.find('.details').css('background-color','#'+oDataOne.bank.color);
  		$appOne.find('img').attr('src',oDataOne.bank.icon);
@@ -122,10 +124,53 @@
  		$appOne.find('h2>a').attr('href',oDataOne.bank.url);
  		$appOne.find('address').html(oDataOne.address);
  		//distance
- 		$appOne.find('.nb').html(foot+'\'');
+ 		$appOne.find('.nb').html(toOneFoot(oDataOne.distance)+'\'');
+ 		$appOne.find('.nb').attr('data-distance',oDataOne.distance);
+ 		$appOne.find('.distance>span').html(oDataOne.distance+'m');
+ 	};
+ 	var changeViewToOne = function( oDataOne ){
+ 		history.pushState ( {selector:'.appOne',old:'.appDistrib'}, e.target.rel, e.target.rel + ".html");
+ 		$appMap.fadeOut('fast');
+ 		$app.fadeOut('fast');
+ 		$appOne.fadeIn();
+
+ 		//header
+ 		$appOne.find('.details').css('background-color','#'+oDataOne.bank.color);
+ 		$appOne.find('img').attr('src',oDataOne.bank.icon);
+ 		$appOne.find('h2').html(oDataOne.bank.name);
+ 		$appOne.find('h2>a').attr('href',oDataOne.bank.url);
+ 		$appOne.find('address').html(oDataOne.address);
+ 		//distance
+ 		$appOne.find('.nb').html(toOneFoot(oDataOne.distance)+'\'');
+ 		$appOne.find('.nb').attr('data-distance',oDataOne.distance);
  		$appOne.find('.distance>span').html(oDataOne.distance+'m');
 
 
+ 	};
+ 	var changeUnitOne = function( e ){
+ 		e.preventDefault();
+ 		if(nTypeUnitOne === 1 ){
+ 			var nDistance  = parseFloat($(this).find('.nb').attr('data-distance'));
+ 			$appOne.find('.nb').html(toOneCar( nDistance )+'\"');
+ 			$appOne.find('.icon').removeClass('icon-foot');
+ 			$appOne.find('.icon').addClass('icon-car');
+ 			nTypeUnitOne = 2;
+
+ 		}
+ 		else if(nTypeUnitOne === 2 ){
+ 			var nDistance  = parseFloat($(this).find('.nb').attr('data-distance'));
+ 			$appOne.find('.nb').html(toOneFoot( nDistance )+'\'');
+ 			$appOne.find('.icon').removeClass('icon-car');
+ 			$appOne.find('.icon').addClass('icon-foot');
+ 			nTypeUnitOne = 1;
+ 		}
+
+ 	};
+ 	var toOneCar = function( nDistance ){
+ 		return Math.round(((nTime * 60) / (nCarSpeed * 1000) ) * nDistance);
+ 	};
+ 	var toOneFoot = function( nDistance ){
+ 		return Math.round((nTime / nFootSpeed ) * parseFloat(nDistance) / 1000);
  	};
  	var interactionMap = function( e ){
  		e.preventDefault();
@@ -160,7 +205,7 @@
  	};
  	var toTimeCar = function( $Dimension ){ // etape 1
  		$Dimension.each(function(){
- 			var time  = Math.round(( 3600 / 50000 ) * parseFloat($(this).attr('data-dimension')));
+ 			var time  = Math.round(((nTime * 60) / (nCarSpeed * 1000)) * parseFloat($(this).attr('data-dimension')));
  			$(this).html(time+'\"');
  		});
  		nTypeUnit = 2; //minute car
@@ -176,7 +221,7 @@
  	};
  	var toTimeFoot = function( $Dimension ){// etape 2
  		$Dimension.each(function(){
- 			var time  = Math.round((( 60 / 5 ) * parseFloat($(this).attr('data-dimension')) / 1000));
+ 			var time  = Math.round((( nTime / nFootSpeed ) * parseFloat($(this).attr('data-dimension')) / 1000));
  			$(this).html(time+'\'');
  		});
  		nTypeUnit = 3; //seconde car
@@ -190,8 +235,11 @@
  			for( var i = nMaxList; i<=(nMaxList+addMoreBank)-1; i++){
 
  				if(oData[i].bank){
+ 					var str = oData[i].address;
+ 					var res = str.replace(" ","-");
+ 					var finalRes = res.replace(",","-");
 
- 					$more.before('<li data-id="'+i+'" data-idBank="'+oData[i].bank.id+'"><a href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
+ 					$more.before('<li  data-idBank="'+oData[i].bank.id+'"><a data-id="'+i+'" href="javascript:void()" rel="'+oData[i].bank.name+'" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
 
  					if(!agenceExist(oData[i].bank.id , aAgences)){
  						aAgences.push([oData[i].bank.id,oData[i].bank.name]);
@@ -287,13 +335,15 @@
  	var displayList = function( nMaxList ){
  		if((nMaxList + addMoreBank) <= oData.length){
  			for( var i = 0; i<=nMaxList-1; i++){
+ 				if(oData[i].bank){
+ 					
+ 					$listBank.append('<li  data-idBank="'+oData[i].bank.id+'"><a data-id="'+i+'" rel="'+oData[i].bank.name+'" href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
 
- 				$listBank.append('<li data-id="'+i+'" data-idBank="'+oData[i].bank.id+'"><a href="javascript:void()" title="Voir la fiche de la"'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
+ 					if(!agenceExist(oData[i].bank.id , aAgences)){
+ 						aAgences.push([oData[i].bank.id,oData[i].bank.name]);
+ 					}
 
- 				if(!agenceExist(oData[i].bank.id , aAgences)){
- 					aAgences.push([oData[i].bank.id,oData[i].bank.name]);
  				}
-
  			};
  		}
  	};

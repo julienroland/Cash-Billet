@@ -312,6 +312,13 @@ a{
         vertical-align: bottom;
         border-bottom: 0;
         margin-left: 10px;
+        a{
+          color:white;
+          border:0;
+          &:hover,&:focus{
+            @include border-radius(0);
+          }
+        }
       }
 
     }
@@ -345,6 +352,7 @@ a{
       a{
         border:0;
         color:$tc;
+        display:block;
         &:hover,&:after{
           @include border-radius(0);
         }
