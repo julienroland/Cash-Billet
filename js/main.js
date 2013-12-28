@@ -8,28 +8,28 @@
 
  /* jshint boss: true, curly: true, eqeqeq: true, eqnull: true, immed: true, latedef: true, newcap: true, noarg: true, browser: true, jquery: true, noempty: true, sub: true, undef: true, unused: true, white: false */
  ;(function( $ ){
-	"use strict";
-	var gMap,
-	gStartPosition = new google.maps.LatLng(50 ,8 ),
-	gMarkerBank = [],
-	gMarkerMy= new google.maps.Marker,
-	uIconBank = './img/framework/icon/markerBank.png',
-	uIconMy = './img/framework/icon/markerMy.png',
-	oMyPosition,
-	oData,
-	oDataOne,
-	$listBank = $('.listing'),
-	$listAgences = $('#agence'),
-	$dimension = $('.listGlobal .dimension'),
-	$showMapOnly = $('.showMap'),
-	$app = $('.app'),
-	$appMap = $('.appDistrib'),
-	$appOne = $('.appOne'),
-	nMaxList = 10,
-	addMoreBank = 20,
-	nTime = 60,
-	nCarSpeed = 50,
-	nFootSpeed = 5,
+ 	"use strict";
+ 	var gMap,
+ 	gStartPosition = new google.maps.LatLng(50.833 ,4.333 ),
+ 	gMarkerBank,
+ 	gMarkerMy= new google.maps.Marker,
+ 	uIconBank = './img/framework/icon/markerBank.png',
+ 	uIconMy = './img/framework/icon/markerMy.png',
+ 	oMyPosition,
+ 	oData,
+ 	oDataOne,
+ 	$listBank = $('.listing'),
+ 	$listAgences = $('#agence'),
+ 	$dimension = $('.listGlobal .dimension'),
+ 	$showMapOnly = $('.showMap'),
+ 	$app = $('.app'),
+ 	$appMap = $('.appDistrib'),
+ 	$appOne = $('.appOne'),
+ 	nMaxList = 10,
+ 	addMoreBank = 10,
+ 	nTime = 60,
+ 	nCarSpeed = 50,
+ 	nFootSpeed = 5,
 	nTypeUnit = 1, //1  = mètre, 2 = seconde,3 = minute
 	nTypeUnitOne = 1, //1 = minute(foot) 2 = seconde(car)
 	aAgences = [],
@@ -45,7 +45,7 @@
 		$showMapOnly.on('click','a',changeViewToMap);
 		$appMap.on('click','a',changeViewToList);
 		$('.time').on('click','a',changeUnitOne);
-		$listBank.on('click','a',changeViewToOneFromApp);
+		$listBank.on('click','.bank a',changeViewToOneFromApp);
 		$('.back').on('click','a',backHistory);
 
 		console.log(location.pathname.replace( sBasePath, "").replace (".html",""));
@@ -73,7 +73,7 @@
 
 		gMap = new google.maps.Map(document.getElementById('gmap'),{
 			center:gStartPosition,
-			zoom:16,
+			zoom:14,
 			disableDefaultUI:true,
 			scrollwheel:false,
 			mapTypeId:google.maps.MapTypeId.ROADMAP,
@@ -89,7 +89,7 @@
 	};
 	var showThisBank = function(){
 		oDataOne = oData[this.id];
-		changeViewToOne( oDataOne );
+		changeViewToOne( oDataOne , this.id);
 
 	};
 	var whenReloadedPage = function( sPath ){
@@ -114,18 +114,27 @@
 				$appMap.fadeOut('fast');
 				$appOne.fadeOut('fast');
 				$app.fadeIn('fast');
+				for(var i  = 0;i<=nMaxList-1; i++){
+					gMarkerBank[i].setMap( gMap );
+				}
+				updatePosition();
 			}
 			else if($selector.selector === $appMap.selector){
 
 				$app.fadeOut('fast');
 				$appOne.fadeOut('fast');
 				$appMap.fadeIn('fast');
+				for(var i  = 0;i<=nMaxList-1; i++){
+					gMarkerBank[i].setMap( gMap );
+				}
+				updatePosition();
 			}
 			else if($selector.selector === $appOne.selector){
 
 				$app.fadeOut('fast');
 				$appMap.fadeOut('fast');
 				$appOne.fadeIn('fast'); 
+
 			}
 		}
 
@@ -143,7 +152,6 @@
 	};
 	var changeViewToMap = function( e ){
 		e.preventDefault();
-
 		history.pushState ( {selector:'.appDistrib'}, e.target.rel, e.target.rel + ".html");
 		$app.fadeOut('fast');
 		$appMap.fadeIn();
@@ -158,13 +166,15 @@
 	};  
 	var changeViewToOneFromApp = function( e ){
 		e.preventDefault();
-
 		history.pushState ( {selector:'.appOne'}, $(this).attr('rel'), $(this).attr('rel').toLowerCase().split(' ').join('-') + ".html");
 		$appMap.fadeOut('fast');
 		$app.fadeOut('fast');
 		$appOne.fadeIn();
-		var id = parseFloat($(this).attr('data-id'));
-		var oDataOne = oData[id];
+
+		var nId = parseFloat($(this).attr('data-id'));
+		console.log(gMarkerBank);
+		oDataOne = oData[nId];
+		showOnlyOneMarker( nId );
 
 		//header
 		$appOne.find('.details').css('background-color','#'+oDataOne.bank.color);
@@ -177,11 +187,24 @@
 		$appOne.find('.nb').attr('data-distance',oDataOne.distance);
 		$appOne.find('.distance>span').html(oDataOne.distance+'m');
 	};
-	var changeViewToOne = function( oDataOne ){
+	var showOnlyOneMarker = function( nId ){
+		for(var i = 0 ; i<=nMaxList-1; i++){
+			if(i !== nId ){
+
+				gMarkerBank[i].setMap( null );
+			}
+		}
+		var gOnePosition = new google.maps.LatLng( oData[nId].latitude , oData[nId].longitude );
+		gMap.panTo( gOnePosition );
+
+	};
+	var changeViewToOne = function( oDataOne , nId ){
 		history.pushState ( {selector:'.appOne'}, oDataOne.bank.name, 'bank-'+oDataOne.bank.name.toLowerCase().split(' ').join('-')+ ".html");
 		$appMap.fadeOut('fast');
 		$app.fadeOut('fast');
 		$appOne.fadeIn();
+
+		showOnlyOneMarker( nId );
 
 		//header
 		$appOne.find('.details').css('background-color','#'+oDataOne.bank.color);
@@ -319,7 +342,7 @@
 
 				if(oData[i].bank){
 
-					$more.before('<li  data-idBank="'+oData[i].bank.id+'"><a data-id="'+i+'" href="javascript:void()" rel="'+oData[i].bank.name+'" title="Voir la fiche de la'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
+					$more.before('<li class="bank" data-idBank="'+oData[i].bank.id+'"><a data-id="'+i+'" href="javascript:void()" rel="'+oData[i].bank.name+'" title="Voir la fiche de la'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
 
 					if(!agenceExist(oData[i].bank.id , aAgences)){
 						aAgences.push([oData[i].bank.id,oData[i].bank.name]);
@@ -327,17 +350,17 @@
 				}
 			}
 			addAgenceSelect();
-			drawBankMarker(  );
+			drawBankMarker();
 			nMaxList += addMoreBank;
+			
 		}
-		
-		else{
+		else
+		{
 			$more.remove();
 			alert('Il n\' a pas d\'autre distributeur dans la région !');
 		}
 
 	};
-
 	var orderByAgence = function(){
 		var nIdBank = parseFloat($(this).find('option:selected').val());
 		var $listingLi = $('.listing li');
@@ -376,7 +399,6 @@
 
 	};
 	var requestBankFromApi = function(  ){
-
 		uUrlAPI = createUrlAPI( oMyPosition.latitude, oMyPosition.longitude );
 
 		$.ajax({
@@ -400,19 +422,38 @@
 		});
 	};
 	var drawBankMarker = function(){
-		for(var i = 0; i<=nMaxList-1;i++){
-			var marker;
-			
-			marker = new google.maps.Marker({
-				position: new google.maps.LatLng(oData[i].latitude,oData[i].longitude),
-				map: gMap,
-				icon: uIconBank,
-				id: i,
-				title:"Voir le detail de la banque"
-			});
-			gMarkerBank.push(marker);
-			google.maps.event.addListener(marker, "click",showThisBank);
+		var marker;
+		if(!gMarkerBank){
+			gMarkerBank = [];
+			for(var i = 0; i<=nMaxList-1;i++){
+				
+				marker = new google.maps.Marker({
+					position: new google.maps.LatLng(oData[i].latitude,oData[i].longitude),
+					map: gMap,
+					icon: uIconBank,
+					id: i,
+					title:"Voir le detail de la banque"
+				});
+				gMarkerBank.push(marker);
+				google.maps.event.addListener(marker, "click",showThisBank);
+			}
 		}
+		else
+		{
+			for( var i = nMaxList; i<=(nMaxList+addMoreBank)-1; i++){
+				
+				marker = new google.maps.Marker({
+					position: new google.maps.LatLng(oData[i].latitude,oData[i].longitude),
+					map: gMap,
+					icon: uIconBank,
+					id: i,
+					title:"Voir le detail de la banque"
+				});
+				gMarkerBank.push(marker);
+				google.maps.event.addListener(marker, "click",showThisBank);
+			}
+		}
+
 	};
 
 	var displayList = function( nMaxList ){
@@ -420,7 +461,7 @@
 			for( var i = 0; i<=nMaxList-1; i++){
 				if(oData[i].bank){
 					
-					$listBank.append('<li  data-idBank="'+oData[i].bank.id+'"><a data-id="'+i+'" rel="'+oData[i].bank.name+'" href="javascript:void()" title="Voir la fiche de la'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
+					$listBank.append('<li class="bank" data-idBank="'+oData[i].bank.id+'"><a data-id="'+i+'" rel="'+oData[i].bank.name+'" href="javascript:void()" title="Voir la fiche de la'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
 
 					if(!agenceExist(oData[i].bank.id , aAgences)){
 						aAgences.push([oData[i].bank.id,oData[i].bank.name]);
