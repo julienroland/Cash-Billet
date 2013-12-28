@@ -1353,8 +1353,6 @@ a {
       visibility: hidden; }
     .listBank .dimension span {
       vertical-align: middle; }
-      .listBank .dimension span:after {
-        content: "m"; }
 
 .footer {
   width: 100%;

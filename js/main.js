@@ -94,12 +94,12 @@
 	};
 	var whenReloadedPage = function( sPath ){
 
-		if(sPath === 'index'){
+		if(sPath == 'index'){
 			$appMap.fadeOut('fast');
 			$appOne.fadeOut('fast');
 			$app.fadeIn('fast');
 		}
-		else if(sPath === 'carte'){
+		else if(sPath == 'carte'){
 			$app.fadeOut('fast');
 			$appOne.fadeOut('fast');
 			$appMap.fadeIn('fast');
@@ -172,7 +172,6 @@
 		$appOne.fadeIn();
 
 		var nId = parseFloat($(this).attr('data-id'));
-		console.log(gMarkerBank);
 		oDataOne = oData[nId];
 		showOnlyOneMarker( nId );
 
@@ -183,7 +182,7 @@
 		$appOne.find('h2>a').attr('href',oDataOne.bank.url);
 		$appOne.find('address').html(oDataOne.address);
 		//distance
-		$appOne.find('.nb').html(toOneFoot(oDataOne.distance)+'\'');
+		$appOne.find('.nb').html(toOneFoot(oDataOne.distance));
 		$appOne.find('.nb').attr('data-distance',oDataOne.distance);
 		$appOne.find('.distance>span').html(oDataOne.distance+'m');
 	};
@@ -247,7 +246,7 @@
 		var nDistance;
 		if(nTypeUnitOne === 1 ){
 			nDistance  = parseFloat($(this).find('.nb').attr('data-distance'));
-			$appOne.find('.nb').html(toOneCar( nDistance )+'\"');
+			$appOne.find('.nb').html(toOneCar( nDistance ));
 			$appOne.find('.icon').removeClass('icon-foot');
 			$appOne.find('.icon').addClass('icon-car');
 			nTypeUnitOne = 2;
@@ -255,7 +254,7 @@
 		}
 		else if(nTypeUnitOne === 2 ){
 			nDistance  = parseFloat($(this).find('.nb').attr('data-distance'));
-			$appOne.find('.nb').html(toOneFoot( nDistance )+'\'');
+			$appOne.find('.nb').html(toOneFoot( nDistance ));
 			$appOne.find('.icon').removeClass('icon-car');
 			$appOne.find('.icon').addClass('icon-foot');
 			nTypeUnitOne = 1;
@@ -263,19 +262,41 @@
 
 	};
 	var toOneCar = function( nDistance ){
-		return Math.round(((nTime * 60) / (nCarSpeed * 1000) ) * nDistance);
-	};
-	var toOneFoot = function( nDistance ){
-		return Math.round((nTime / nFootSpeed ) * parseFloat(nDistance) / 1000);
-	};
-	var interactionMap = function( e ){
-		e.preventDefault();
-		locateMe();
-	};
-	var changeUnit = function( e ){
-		e.preventDefault();
-		var $Dimension;
-		$Dimension = $listBank.find('.dimension');
+		var time = ((nTime * nTime) / (nCarSpeed * 1000) ) * nDistance;
+			if(time >= nTime){
+
+				var nTimeM  = Math.floor(time / nTime) +'\'' ;
+				var nTimeS  = Math.round(time % nTime) +'\"' ;
+
+				return nTimeM + nTimeS;
+			}
+			else{
+
+				return Math.round(time)+'\"';
+			}
+		};
+		var toOneFoot = function( nDistance ){
+			var time = (nTime / nFootSpeed ) * parseFloat(nDistance) / 1000;
+			if(time < 1){
+				return  Math.round((time / 1) * nTime)+'\"';
+
+			}
+			else{
+				var nTtime = time * nTime;
+
+				var nTimeM  = Math.floor(nTtime / nTime) +'\'' ;
+				var nTimeS  = Math.round(nTtime % nTime) +'\"' ;
+				return nTimeM + nTimeS;
+			}
+		};
+		var interactionMap = function( e ){
+			e.preventDefault();
+			locateMe();
+		};
+		var changeUnit = function( e ){
+			e.preventDefault();
+			var $Dimension;
+			$Dimension = $listBank.find('.dimension');
 
 		if(nTypeUnit === 1){ //mètre
 			toTimeCar( $Dimension);
@@ -301,8 +322,19 @@
 	};
 	var toTimeCar = function( $Dimension ){ // etape 1
 		$Dimension.each(function(){
-			var time  = Math.round(((nTime * 60) / (nCarSpeed * 1000)) * parseFloat($(this).attr('data-dimension')));
-			$(this).html(time+'\"');
+			var time  = ((nTime * nTime) / (nCarSpeed * 1000)) * parseFloat($(this).attr('data-dimension'));
+
+			if(time >= nTime){
+
+				var nTimeM  = Math.floor(time / nTime) +'\'' ;
+				var nTimeS  = Math.round(time % nTime) +'\"' ;
+
+				$(this).html(nTimeM + nTimeS);
+			}
+			else{
+
+				$(this).html(Math.round(time)+'\"');
+			}
 		});
 		nTypeUnit = 2; //minute car
 		
@@ -317,8 +349,20 @@
 	};
 	var toTimeFoot = function( $Dimension ){// etape 2
 		$Dimension.each(function(){
-			var time  = Math.round((( nTime / nFootSpeed ) * parseFloat($(this).attr('data-dimension')) / 1000));
-			$(this).html(time+'\'');
+			var time  = (( nTime / nFootSpeed ) * parseFloat($(this).attr('data-dimension')) / 1000);
+			if(time < 1){
+				time  = Math.round((time / 1) * nTime);
+				$(this).html(time+'\"');
+			}
+			else{
+				var nTtime = time * nTime;
+
+				var nTimeM  = Math.floor(nTtime / nTime) +'\'' ;
+				var nTimeS  = Math.round(nTtime % nTime) +'\"' ;
+				$(this).html(nTimeM + nTimeS);
+			}
+
+
 		});
 		nTypeUnit = 3; //seconde car
 		
@@ -336,13 +380,25 @@
 	var moreBankInList = function( e ){
 		e.preventDefault();
 		var $more = $('.more');
+		var sWhichUnit; 
 		if((nMaxList + addMoreBank) <= oData.length){
 
 			for( var i = nMaxList; i<=(nMaxList+addMoreBank)-1; i++){
 
 				if(oData[i].bank){
 
-					$more.before('<li class="bank" data-idBank="'+oData[i].bank.id+'"><a data-id="'+i+'" href="javascript:void()" rel="'+oData[i].bank.name+'" title="Voir la fiche de la'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
+					if(nTypeUnit === 1 ){
+						sWhichUnit = oData[i].distance+'m';
+					}
+					else if(nTypeUnit === 2){
+						sWhichUnit = toOneCar(oData[i].distance);
+					}
+					else if(nTypeUnit === 3){
+						sWhichUnit = toOneFoot(oData[i].distance);
+
+					}
+
+					$more.before('<li class="bank" data-idBank="'+oData[i].bank.id+'"><a data-id="'+i+'" href="javascript:void()" rel="'+oData[i].bank.name+'" title="Voir la fiche de la'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+sWhichUnit+'</span></div></a></li>');
 
 					if(!agenceExist(oData[i].bank.id , aAgences)){
 						aAgences.push([oData[i].bank.id,oData[i].bank.name]);
@@ -461,7 +517,7 @@
 			for( var i = 0; i<=nMaxList-1; i++){
 				if(oData[i].bank){
 					
-					$listBank.append('<li class="bank" data-idBank="'+oData[i].bank.id+'"><a data-id="'+i+'" rel="'+oData[i].bank.name+'" href="javascript:void()" title="Voir la fiche de la'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'</span></div></a></li>');
+					$listBank.append('<li class="bank" data-idBank="'+oData[i].bank.id+'"><a data-id="'+i+'" rel="'+oData[i].bank.name+'" href="javascript:void()" title="Voir la fiche de la'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'m</span></div></a></li>');
 
 					if(!agenceExist(oData[i].bank.id , aAgences)){
 						aAgences.push([oData[i].bank.id,oData[i].bank.name]);
