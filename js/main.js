@@ -61,13 +61,18 @@
 
 	var initialize = function(){
 
-		$('.loading').delay(500).fadeOut('slow');
-
 		displayGoogleMap();
 
 		history.pushState ( {selector:'.app'}, "index", "index.html");
 
 		locateMe();
+
+		
+	};
+	var hideLoading = function(){
+
+		$('.overlay').fadeOut('slow');
+
 	};
 	var displayGoogleMap = function(){
 
@@ -75,7 +80,7 @@
 			center:gStartPosition,
 			zoom:14,
 			disableDefaultUI:true,
-			scrollwheel:false,
+			//scrollwheel:false,
 			mapTypeId:google.maps.MapTypeId.ROADMAP,
 		});
 
@@ -144,12 +149,19 @@
 	};
 	var locateMe = function(){
 		if(navigator.geolocation){
-			navigator.geolocation.getCurrentPosition(getPositionSucces,getPositionError);
+			navigator.geolocation.getCurrentPosition(function(position){
+				getPositionSucces(position);
+				
+				hideLoading();
+			},function(){
+				getPositionError();
+			});
+			
 		}else{
 
 			alert('Impossible de vous localiser !');
 		}
-	};
+	}; //navigator.geolocation.getCurrentPosition(getPositionSucces,getPositionError);
 	var changeViewToMap = function( e ){
 		e.preventDefault();
 		history.pushState ( {selector:'.appDistrib'}, e.target.rel, e.target.rel + ".html");
@@ -180,7 +192,13 @@
 		$appOne.find('img').attr('src',oDataOne.bank.icon);
 		$appOne.find('h2').html(oDataOne.bank.name);
 		$appOne.find('h2>a').attr('href',oDataOne.bank.url);
-		$appOne.find('address').html(oDataOne.address);
+
+		if(oDataOne.address !==""){
+			$appOne.find('address').html(oDataOne.address);
+		}
+		else{
+			$appOne.find('.address').hide();
+		}
 		//distance
 		$appOne.find('.nb').html(toOneFoot(oDataOne.distance));
 		$appOne.find('.nb').attr('data-distance',oDataOne.distance);
@@ -193,7 +211,7 @@
 				gMarkerBank[i].setMap( null );
 			}
 		}
-		var gOnePosition = new google.maps.LatLng( oData[nId].latitude , oData[nId].longitude );
+		var gOnePosition = new google.maps.LatLng( oData[nId].latitude+0.008 , oData[nId].longitude );
 		gMap.panTo( gOnePosition );
 
 	};
@@ -210,9 +228,14 @@
 		$appOne.find('img').attr('src',oDataOne.bank.icon);
 		$appOne.find('h2').html(oDataOne.bank.name);
 		$appOne.find('h2>a').attr('href',oDataOne.bank.url);
-		$appOne.find('address').html(oDataOne.address);
+
+		if(oDataOne.address !== null){
+			$appOne.find('address').html(oDataOne.address);
+		}else{
+			$appOne.find('.address').hide();
+		}
 		//distance
-		$appOne.find('.nb').html(toOneFoot(oDataOne.distance)+'\'');
+		$appOne.find('.nb').html(toOneFoot(oDataOne.distance)+'min');
 		$appOne.find('.nb').attr('data-distance',oDataOne.distance);
 		$appOne.find('.distance>span').html(oDataOne.distance+'m');
 
@@ -263,40 +286,40 @@
 	};
 	var toOneCar = function( nDistance ){
 		var time = ((nTime * nTime) / (nCarSpeed * 1000) ) * nDistance;
-			if(time >= nTime){
+		if(time >= nTime){
 
-				var nTimeM  = Math.floor(time / nTime) +'\'' ;
-				var nTimeS  = Math.round(time % nTime) +'\"' ;
+			var nTimeM  = Math.floor(time / nTime) +'min' ;
+			var nTimeS  = Math.round(time % nTime) +'s' ;
 
-				return nTimeM + nTimeS;
-			}
-			else{
+			return nTimeM + nTimeS;
+		}
+		else{
 
-				return Math.round(time)+'\"';
-			}
-		};
-		var toOneFoot = function( nDistance ){
-			var time = (nTime / nFootSpeed ) * parseFloat(nDistance) / 1000;
-			if(time < 1){
-				return  Math.round((time / 1) * nTime)+'\"';
+			return Math.round(time)+'s';
+		}
+	};
+	var toOneFoot = function( nDistance ){
+		var time = (nTime / nFootSpeed ) * parseFloat(nDistance) / 1000;
+		if(time < 1){
 
-			}
-			else{
-				var nTtime = time * nTime;
+			return  Math.round((time / 1) * nTime)+'s';
+		}
+		else{
+			var nTtime = time * nTime;
 
-				var nTimeM  = Math.floor(nTtime / nTime) +'\'' ;
-				var nTimeS  = Math.round(nTtime % nTime) +'\"' ;
-				return nTimeM + nTimeS;
-			}
-		};
-		var interactionMap = function( e ){
-			e.preventDefault();
-			locateMe();
-		};
-		var changeUnit = function( e ){
-			e.preventDefault();
-			var $Dimension;
-			$Dimension = $listBank.find('.dimension');
+			var nTimeM  = Math.floor(nTtime / nTime) +'min' ;
+			var nTimeS  = Math.round(nTtime % nTime) +'s' ;
+			return nTimeM + nTimeS;
+		}
+	};
+	var interactionMap = function( e ){
+		e.preventDefault();
+		locateMe();
+	};
+	var changeUnit = function( e ){
+		e.preventDefault();
+		var $Dimension;
+		$Dimension = $listBank.find('.dimension');
 
 		if(nTypeUnit === 1){ //mètre
 			toTimeCar( $Dimension);
@@ -326,14 +349,14 @@
 
 			if(time >= nTime){
 
-				var nTimeM  = Math.floor(time / nTime) +'\'' ;
-				var nTimeS  = Math.round(time % nTime) +'\"' ;
+				var nTimeM  = Math.floor(time / nTime) +'min' ;
+				var nTimeS  = Math.round(time % nTime) +'s' ;
 
 				$(this).html(nTimeM + nTimeS);
 			}
 			else{
 
-				$(this).html(Math.round(time)+'\"');
+				$(this).html(Math.round(time)+'s');
 			}
 		});
 		nTypeUnit = 2; //minute car
@@ -352,13 +375,13 @@
 			var time  = (( nTime / nFootSpeed ) * parseFloat($(this).attr('data-dimension')) / 1000);
 			if(time < 1){
 				time  = Math.round((time / 1) * nTime);
-				$(this).html(time+'\"');
+				$(this).html(time+'');
 			}
 			else{
 				var nTtime = time * nTime;
 
-				var nTimeM  = Math.floor(nTtime / nTime) +'\'' ;
-				var nTimeS  = Math.round(nTtime % nTime) +'\"' ;
+				var nTimeM  = Math.floor(nTtime / nTime) +'min' ;
+				var nTimeS  = Math.round(nTtime % nTime) +'s' ;
 				$(this).html(nTimeM + nTimeS);
 			}
 
@@ -398,7 +421,7 @@
 
 					}
 
-					$more.before('<li class="bank" data-idBank="'+oData[i].bank.id+'"><a data-id="'+i+'" href="javascript:void()" rel="'+oData[i].bank.name+'" title="Voir la fiche de la'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+sWhichUnit+'</span></div></a></li>');
+					$more.before('<li class="bank" data-idBank="'+oData[i].bank.id+'"><a data-id="'+i+'" href="javascript:void()" rel="'+oData[i].bank.name+'" title="Voir la fiche de la'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette banque ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+sWhichUnit+'</span></div></a></li>');
 
 					if(!agenceExist(oData[i].bank.id , aAgences)){
 						aAgences.push([oData[i].bank.id,oData[i].bank.name]);
@@ -450,8 +473,9 @@
 		var nRadius = 10;
 		return "http://ccapi.superacid.be/terminals?latitude="+nLat+"&longitude="+nLong+"&radius="+nRadius;
 	};
-	var getPositionError = function( oError ){
-		console.log(oError);
+	var getPositionError = function(){
+
+		alert('Erreur de localisation, veuillez rafraichir');
 
 	};
 	var requestBankFromApi = function(  ){
@@ -513,11 +537,12 @@
 	};
 
 	var displayList = function( nMaxList ){
+
 		if((nMaxList + addMoreBank) <= oData.length){
 			for( var i = 0; i<=nMaxList-1; i++){
 				if(oData[i].bank){
-					
-					$listBank.append('<li class="bank" data-idBank="'+oData[i].bank.id+'"><a data-id="'+i+'" rel="'+oData[i].bank.name+'" href="javascript:void()" title="Voir la fiche de la'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette bank ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'m</span></div></a></li>');
+					$('.nbDistrib').html(oData.length + ' distributeurs à proximité');
+					$listBank.append('<li class="bank" data-idBank="'+oData[i].bank.id+'"><a data-id="'+i+'" rel="'+oData[i].bank.name+'" href="javascript:void()" title="Voir la fiche de la'+oData[i].bank.name+'"><span class="overBank" style="color:white;background-color:#'+oData[i].bank.color+'">Voir cette banque ('+oData[i].bank.name+')</span><div class="infosBank" data-type="'+oData[i].bank.color+'"><div class="logoBank"><img src="'+oData[i].bank.icon+'" alt="Logo de la bank '+oData[i].bank.name+'"></div><span style="color:#'+oData[i].bank.color+'" class="titleBank">'+oData[i].bank.name+'</span></div><div class="dimension" data-dimension="'+oData[i].distance+'" style="background-color:#'+oData[i].bank.color+'"><span>'+oData[i].distance+'m</span></div></a></li>');
 
 					if(!agenceExist(oData[i].bank.id , aAgences)){
 						aAgences.push([oData[i].bank.id,oData[i].bank.name]);

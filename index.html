@@ -4,16 +4,16 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-    <link rel="stylesheet" href="css/screen.css">
-    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+  <link rel="stylesheet" href="css/screen.css">
+  <script src="js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
         <!--[if lt IE 7]>
@@ -22,135 +22,142 @@
 
             <h1 class="section" role="heading" aria-level="1">Bienvenue sur la web app Cash Billet</h1>
             <section class="container">
-                <h1 class="section" role="heading" aria-level="1">Contenu principal de l'application</h1>
-                <div class="loading"><span class="textLoading">Chargement en cours ...</span></div>
-                <div class="wrapper map-content">
-                   <div id="gmap">
+              <h1 class="section" role="heading" aria-level="1">Contenu principal de l'application</h1>
+              <div class="overlay">
+                <div class="loading">
+                  <div class="cube1"></div>
+                  <div class="cube2"></div>
+                  <p class="text">Chargement...</p>
+                </div>
+              </div>
+              
+              <div class="wrapper map-content">
+               <div id="gmap">
 
-                   </div>
-               </div> 
-               <header class="header" role="banner">
-                  <h1 class="section" role="heading" aria-level="1">Bannière de l'application</h1>
-                  <div class="wrapper">
-                      <div class="logo">
-                          <a href="index.html">
-                           <img src="./img/logo.png"  alt="Logo de Cash Billet"/>
-                       </a>
-                   </div>  
-                   <span class="titleApp">
-                       <a href="index.html" title="Aller à l'accueil de l'application">
-                          <h1 role="heading" aria-level="1">Cash Billet</h1>
-                      </a>
-                  </span>
-                  <div class="reload">
-                      <a href="index.html" title="Recharger la page">Recharger la page</a>
-                  </div>
-              </div> 
+               </div>
+             </div> 
+             <header class="header" role="banner">
+              <h1 class="section" role="heading" aria-level="1">Bannière de l'application</h1>
+              <div class="wrapper">
+                <div class="logo">
+                  <a href="index.html">
+                   <img src="./img/logo.png"  alt="Logo de Cash Billet"/>
+                 </a>
+               </div>  
+               <span class="titleApp">
+                 <a href="index.html" title="Aller à l'accueil de l'application">
+                  <h1 role="heading" aria-level="1">Cash Billet</h1>
+                </a>
+              </span>
+              <div class="reload">
+                <a href="index.html" title="Recharger la page">Recharger la page</a>
+              </div>
+            </div> 
           </header>  
 
           <section class="main" id="main">
-             <h1 class="section" role="heading" aria-level="1">Contenu principal de l'application</h1>
+           <h1 class="section" role="heading" aria-level="1">Contenu principal de l'application</h1>
 
 
-             <section class="app wrapper">
-              <h1 class="section" role="heading" aria-level="1">L'application</h1>
-              <div class="menuFix">
-                  <div class="status bar">
-                      <span class="icon icon-map-little-white png">Icône d'un marker</span>
-                      <span class="nbDistrib">9 distributeurs à proximité (Namur)</span>
-                  </div>
-                  <div class="addMenu bar">
-                      <span class="icon icon-gMap-little">Icône d'un marker</span>
-                      <span class="showMap"><a href="javascript:void(0)" rel="carte" title="Voir la carte avec les distributeurs">Voir les distributeurs sur la carte</a></span>
+           <section class="app wrapper">
+            <h1 class="section" role="heading" aria-level="1">L'application</h1>
+            <div class="menuFix">
+              <div class="status bar">
+                <span class="icon icon-map-little-white png">Icône d'un marker</span>
+                <span class="nbDistrib">9 distributeurs à proximité</span>
+              </div>
+              <div class="addMenu bar">
+                <span class="icon icon-gMap-little">Icône d'un marker</span>
+                <span class="showMap"><a href="javascript:void(0)" rel="carte" title="Voir la carte avec les distributeurs">Voir les distributeurs sur la carte</a></span>
 
-                  </div>
-                  <div class="listGlobal bar">
-                      <div class="agences">
-                        <label for="agence">Banque</label>
-                        <select name="agence" id="agence">
-                            <option value="0">Toutes</option>   
-                        </select>
-                    </div>
-                    <div class="dimension">
-                        <a href="javascript:void" title="Voir la distance en mètre">Voir en mètre (m)</a>
-                    </div>
+              </div>
+              <div class="listGlobal bar">
+                <div class="agences">
+                  <label for="agence">Banque</label>
+                  <select name="agence" id="agence">
+                    <option value="0">Toutes</option>   
+                  </select>
                 </div>
+                <div class="dimension">
+                  <a href="javascript:void" title="Voir la distance en mètre">Voir en mètre (m)</a>
+                </div>
+              </div>
             </div>
             <div class="listBank">
-               <ul class="listing">
-               
-            </ul>
-        </div>
-    </div>
-</section>
-<section class="appDistrib wrapper">
-  <h1 class="section" role="heading" aria-level="1">L'application</h1>
-  <div class="menuFix">
-      <div class="status bar">
-          <a href="javascript:void(0)" rel="index" title="Retourner à la liste des banks">
+             <ul class="listing">
+
+             </ul>
+           </div>
+         </div>
+       </section>
+       <section class="appDistrib wrapper">
+        <h1 class="section" role="heading" aria-level="1">L'application</h1>
+        <div class="menuFix">
+          <div class="status bar">
+            <a href="javascript:void(0)" rel="index" title="Retourner à la liste des banks">
               <span class="icon icon-menu-white"></span>
               <span class="showList">Voir la liste</span>
-          </a>
-      </div>
+            </a>
+          </div>
 
-  </div>
-</section>
-<section class="appOne wrapper">
-  <h1 class="section" role="heading" aria-level="1">Vue d'une banque</h1>
+        </div>
+      </section>
+      <section class="appOne wrapper">
+        <h1 class="section" role="heading" aria-level="1">Vue d'une banque</h1>
 
-  <div class="bar details">
-      <span class="title">
-          <img src="http://static.cash-cache.com/banks/ing.png" alt="Logo de la banque">
-          <h2><a href="javascript:void(0)" title="Aller sur le site de la banque">Aucun nom de bank</a></h2>
-      </span>
-      <span class="address">
-        <address></address>
-    </span>
-</div>
-<div class="bar dimension">
-  <span class="time">
-  <a href="javascript:void(0)" title="Voir le temps en voiture">
-    <span class="nb">Inconnu</span><span class="icon icon-foot"></span>
-    </a>
-</span>
-<span class="distance">
-    <span>Inconnue</span>
-</span>
+        <div class="bar details">
+          <span class="title">
+            <img src="http://static.cash-cache.com/banks/ing.png" alt="Logo de la banque">
+            <h2><a href="javascript:void(0)" title="Aller sur le site de la banque">Aucun nom de bank</a></h2>
+          </span>
+          <span class="address">
+            <address></address>
+          </span>
+        </div>
+        <div class="bar dimension">
+          <span class="time">
+            <a href="javascript:void(0)" title="Voir le temps en voiture">
+              <span class="nb">Inconnu</span><span class="icon icon-foot"></span>
+            </a>
+          </span>
+          <span class="distance">
+            <span>Inconnue</span>
+          </span>
 
-</div>
+        </div>
 
-</section>
-</section>
-<footer class="footer" role="footer">
-  <div class="wrapper">
-      <h1 class="section" role="heading" aria-level="1">Intéraction relatif à l'application</h1>
-      <div class="back">
+      </section>
+    </section>
+    <footer class="footer" role="footer">
+      <div class="wrapper">
+        <h1 class="section" role="heading" aria-level="1">Intéraction relatif à l'application</h1>
+        <div class="back">
           <a href="javascript:void" title="Revenir en arrière">
-              <span class="icon icon-chevron-left"></span>
-              <span>Retour</span>
+            <span class="icon icon-chevron-left"></span>
+            <span>Retour</span>
           </a>
-      </div>
-      <div class="mapInteraction" title="Me localiser sur la carte">
+        </div>
+        <div class="mapInteraction" title="Me localiser sur la carte">
           <a href="javascript:void">
             <span><span class="icon icon-location"></span>Me localiser</span>
-        </a>
-    </div>
-</div>
-</footer>
-</section> 
-<script  type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&sensor=false"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-<script  src="js/main.js"></script>
+          </a>
+        </div>
+      </div>
+    </footer>
+  </section> 
+  <script  type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJSSKlpz3C7EwQd2kvgn1JRBd7Ojrl9dM&sensor=false"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+  <script  src="js/main.js"></script>
 
-<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-<script>
+  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+  <script>
     (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
     e=o.createElement(i);r=o.getElementsByTagName(i)[0];
     e.src='//www.google-analytics.com/analytics.js';
     r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
     ga('create','UA-XXXXX-X');ga('send','pageview');
-</script>
+  </script>
 </body>
 </html>
